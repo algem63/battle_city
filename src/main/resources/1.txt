@@ -1,0 +1,87 @@
+for (Component component: components) {
+                    if (component instanceof MapObject) {
+                        MapObject mapObject = (MapObject) component;
+                        if (mapObject.getImageNum() == 1
+                                && mapObject.getX() == getX() + Constants.tankSize
+                                && mapObject.getY() == getY() + Constants.tankSize / 2 - Constants.brickSize / 2) {
+                            gameFieldPanel.remove(mapObject);
+                            gameFieldPanel.removeVerticalLineOfBlocks(mapObject.getX(), mapObject.getY(), Shell.CENTER);
+                            gameFieldPanel.repaint(mapObject.getBounds());
+                            gameFieldPanel.drawExpolde(getX() + Constants.tankSize,
+                                    getY() + Constants.tankSize / 2 - Constants.explosionSize / 2,
+                                    Constants.SMALL_EXPLOSION_CODE,
+                                    Constants.explosionSize);
+                            gameFieldPanel.repaint(getX() + Constants.tankSize,
+                                    getY() + Constants.tankSize / 2 - Constants.explosionSize / 2,
+                                    Constants.explosionSize,
+                                    Constants.explosionSize);
+                            closeShot = true;
+                            break;
+                        }
+                    }
+                }
+                if (!closeShot) {
+                    if (!doubleShot) {
+                        shell1Bounds = new Rectangle(getX() + Constants.tankSize,
+                                getY() + Constants.tankSize / 2 - Constants.shellSize / 2,
+                                Constants.shellSize,
+                                Constants.shellSize);
+                    } else {
+                        shell1Bounds = new Rectangle(getX() + Constants.tankSize,
+                                getY() + Constants.shellSize,
+                                Constants.shellSize,
+                                Constants.shellSize);
+                        shell2Bounds = new Rectangle(getX() + Constants.tankSize,
+                                getY() + Constants.tankSize - Constants.shellSize * 2,
+                                Constants.shellSize,
+                                Constants.shellSize);
+                    }
+                }
+                if (!closeShot) {
+                    shell = new Shell(gameFieldPanel, direction, this);
+
+                    shell.setBounds(shell1Bounds);
+                    if (doubleShot) {
+                        shell2 = new Shell(gameFieldPanel, direction, this);
+                        shell2.setBounds(shell2Bounds);
+                        switch (getDirection()) {
+                            case Constants.UP:
+                                shell.setPositionCode(Shell.V_LEFT);
+                                shell2.setPositionCode(Shell.V_RIGHT);
+                                break;
+                            case Constants.DOWN:
+                                shell.setPositionCode(Shell.V_LEFT);
+                                shell2.setPositionCode(Shell.V_RIGHT);
+                                break;
+                            case Constants.LEFT:
+                                shell.setPositionCode(Shell.H_UP);
+                                shell2.setPositionCode(Shell.H_DOWN);
+                                break;
+                            case Constants.RIGHT:
+                                shell.setPositionCode(Shell.H_UP);
+                                shell2.setPositionCode(Shell.H_DOWN);
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        shell.setPositionCode(Shell.CENTER);
+                    }
+                    if (starsCount >= 3) {
+                        shell.setPiercing(true);
+                        if (doubleShot) {
+                            shell2.setPiercing(true);
+                        }
+                    }
+                    gameFieldPanel.add(shell);
+                    gameFieldPanel.repaint(shell.getBounds());
+                }
+                if (doubleShot) {
+                    gameFieldPanel.add(shell2, new Integer(2));
+                    gameFieldPanel.repaint(shell2.getBounds());
+                }
+                currentBullets++;
+                fireKeyPressed = true;
+                // !! переделать для двух игроков
+                gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
+                gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
