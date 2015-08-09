@@ -1,16 +1,16 @@
 package game.gui.intro;
 
 import game.gui.*;
+import game.logic.GameConfig;
 
-import javax.swing.JButton;
-import javax.swing.WindowConstants;
-import java.awt.HeadlessException;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 public class IntroForm extends BasicForm {
 
-    private TankPictureLoader tankPictureLoader;
     private JButton onePlayer;
     private JButton twoPlayers;
     private JButton construction;
@@ -30,12 +30,25 @@ public class IntroForm extends BasicForm {
        addComponents();
        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
        repaint();
-    }    
+    }
+
+    private class TankPictureLoader extends JPanel {
+        private BufferedImage tankPicture;
+
+        public TankPictureLoader() {
+            tankPicture = GameConfig.getInstance().getTankImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            g.drawImage(tankPicture, 0, 0, this);
+        }
+    }
     
     //TODO Добавление компонент вынести в отдельный вложенный класс
     @Override
     public final void addComponents() {
-        tankPictureLoader = new TankPictureLoader();
+        TankPictureLoader tankPictureLoader = new TankPictureLoader();
         tankPictureLoader.setBounds(0, 0, 430, 321);
         add(tankPictureLoader);
 
