@@ -6,13 +6,13 @@
 
 package game.objects.tank.enemy;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.objects.tank.AbstractTank;
 import javax.swing.Timer;
 
 /**
  *
- * @author Павел
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 public class EnemyTank extends AbstractTank {
     public static final String EN_TANK_UP = "/images/EnTankT.gif";

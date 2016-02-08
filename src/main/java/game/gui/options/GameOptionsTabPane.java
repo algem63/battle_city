@@ -1,4 +1,4 @@
-package game.gui;
+package game.gui.options;
 
 import game.logic.GameConfig;
 import game.logic.KeySetHandler;
@@ -22,6 +22,7 @@ import java.util.Properties;
 
 public class GameOptionsTabPane extends JPanel {
 
+    //TODO баг: нажать две кнопки пользовательских клавиш подряд
     private JCheckBox randomTanks;
     private JLabel tanksCountLabel;
     private JLabel onFieldLabel;
@@ -30,6 +31,7 @@ public class GameOptionsTabPane extends JPanel {
     private JTextField onFieldField;
     private JToggleButton pauseButton;
     private JToggleButton restartButton;
+    //TODO по-прежнему не поддерживается
     private JButton but3;
 
     public GameOptionsTabPane() {

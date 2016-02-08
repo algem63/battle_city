@@ -1,9 +1,11 @@
-package game.gui;
+package game.gui.game;
 
+import game.gui.bf.BattleField;
+import game.gui.editor.MapDesigner;
+import game.gui.editor.StatusBar;
 import game.logic.Constants;
 import game.logic.EnemyTankRespawner;
 import game.logic.GameConfig;
-import game.logic.MapLoader;
 import game.objects.Bonus;
 import game.objects.Explosion;
 import game.objects.HeadQuarter;
@@ -22,13 +24,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.io.BufferedInputStream;
-import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
@@ -94,7 +90,7 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 					x = e.getX() - e.getX() % 8;
 					y = e.getY() - e.getY() % 8;
 					if (MapDesigner.brickSelected) {
-						addMapObject(x, y, 1, Constants.brickSize);
+						addMapObject(x, y, 1, Constants.BRICK_SIZE);
 					}
 					// перед добавлением объектов
 					// больше одной клетки, т.е.
@@ -103,19 +99,19 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 					// что они не выходят за границы
 					// экрана.
 					if (MapDesigner.concreteSelected
-							&& (x / 8 != Constants.horizontalCellsCount)
-							&& (y / 8 != Constants.verticalCellsCount)) {
-						addMapObject(x, y, 2, Constants.concreteSize);
+							&& (x / 8 != Constants.HORIZONTAL_CELLS_COUNT)
+							&& (y / 8 != Constants.VERTICAL_CELLS_COUNT)) {
+						addMapObject(x, y, 2, Constants.CONCRETE_SIZE);
 					}
 					if (MapDesigner.waterSelected
-							&& (x / 8 != Constants.horizontalCellsCount)
-							&& (y / 8 != Constants.verticalCellsCount)) {
-						addMapObject(x, y, 3, Constants.waterSize);
+							&& (x / 8 != Constants.HORIZONTAL_CELLS_COUNT)
+							&& (y / 8 != Constants.VERTICAL_CELLS_COUNT)) {
+						addMapObject(x, y, 3, Constants.WATER_SIZE);
 					}
 					if (MapDesigner.headQuartersSelected
-							&& (x / 8 + 4 <= Constants.horizontalCellsCount)
-							&& (y / 8 + 4 <= Constants.verticalCellsCount)) {
-						addMapObject(x, y, 4, Constants.hqSize);
+							&& (x / 8 + 4 <= Constants.HORIZONTAL_CELLS_COUNT)
+							&& (y / 8 + 4 <= Constants.VERTICAL_CELLS_COUNT)) {
+						addMapObject(x, y, 4, Constants.HQ_SIZE);
 					}
 					repaint();
 					break;
@@ -161,20 +157,20 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 						- e.getY() % 8;
 				if (MapDesigner.brickSelected && button1Down) {
 					addMapObject(xCoord, yCoord, Constants.BRICK_CODE,
-							Constants.brickSize);
+							Constants.BRICK_SIZE);
 					// !! repaint() можно вынести за if
 					repaint();
 				} else if (MapDesigner.concreteSelected && button1Down
-						&& (xCoord / 8 != Constants.horizontalCellsCount)
-						&& (yCoord / 8 != Constants.verticalCellsCount)) {
+						&& (xCoord / 8 != Constants.HORIZONTAL_CELLS_COUNT)
+						&& (yCoord / 8 != Constants.VERTICAL_CELLS_COUNT)) {
 					addMapObject(xCoord, yCoord, Constants.CONCRETE_CODE,
-							Constants.concreteSize);
+							Constants.CONCRETE_SIZE);
 					repaint();
 				} else if (MapDesigner.waterSelected && button1Down
-						&& (xCoord / 8 != Constants.horizontalCellsCount)
-						&& (yCoord / 8 != Constants.verticalCellsCount)) {
+						&& (xCoord / 8 != Constants.HORIZONTAL_CELLS_COUNT)
+						&& (yCoord / 8 != Constants.VERTICAL_CELLS_COUNT)) {
 					addMapObject(xCoord, yCoord, Constants.WATER_CODE,
-							Constants.waterSize);
+							Constants.WATER_SIZE);
 					repaint();
 				}
 			}
@@ -194,22 +190,20 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		/*
 		 * if (statusBar != null) { g.setColor(Color.CYAN); // рисуем
 		 * вертикальные линии for (int i = 7; i < 800; i += 8)
-		 * { g.drawLine(i, 0, i, Constants.gameFieldHeight); } // рисуем
+		 * { g.drawLine(i, 0, i, Constants.GAME_FIELD_HEIGHT); } // рисуем
 		 * горизонтальные линии for (int i = 7; i < 600; i +=
-		 * 8) { g.drawLine(0, i, Constants.gameFieldWidth, i); } }
+		 * 8) { g.drawLine(0, i, Constants.GAME_FIELD_WIDTH, i); } }
 		 */
 	}
 
 	// добавляет объект в режиме конструктора
-	public final void addMapObject(final int x, final int y,
-			final int imageNum, final int size) {
+	public final void addMapObject(final int x, final int y, final int imageNum, final int size) {
 		// перед добавлением нового объекта
 		// убеждаемся, что он не пересекается с
 		// существующими на панели объектами.
-		MapObject mapObject = null;
+		MapObject mapObject;
 		if (imageNum == 4) {
-			mapObject = new HeadQuarter(HeadQuarter.START_LEVEL_VALUE, x, y,
-					this);
+			mapObject = new HeadQuarter(HeadQuarter.START_LEVEL_VALUE, x, y, this);
 		} else {
 			mapObject = new MapObject(x, y, size, imageNum, this);
 		}
@@ -237,26 +231,15 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		playerOneTank = new PlayerTank(this, true, life);
 		playerOneTank.setTankPicture(AbstractTank.G_TANK_UP);
 		/*
-		 * playerOneTank.setBounds(0, Constants.gameFieldHeight -
-		 * Constants.tankSize, Constants.tankSize, Constants.tankSize);
+		 * playerOneTank.setBounds(0, Constants.GAME_FIELD_HEIGHT -
+		 * Constants.TANK_SIZE, Constants.TANK_SIZE, Constants.TANK_SIZE);
 		 */
-		playerOneTank.setBounds(Constants.gameFieldWidth - Constants.tankSize,
-				Constants.gameFieldHeight - Constants.tankSize,
-				Constants.tankSize, Constants.tankSize);
+		playerOneTank.setBounds(Constants.GAME_FIELD_WIDTH - Constants.TANK_SIZE,
+				Constants.GAME_FIELD_HEIGHT - Constants.TANK_SIZE,
+				Constants.TANK_SIZE, Constants.TANK_SIZE);
 		add(playerOneTank, new Integer(0));
                 addKeyListener(new PlayerTankKeyListener(playerOneTank, this));
 	}
-
-	/*
-	public final void addPlayerOneTank(AbstractTank tank) {
-		remove(playerOneTank);
-		tank.setBounds(0, Constants.gameFieldHeight - Constants.tankSize,
-				Constants.tankSize, Constants.tankSize);
-		add(tank, new Integer(0));
-//		addKeyListener(tank);
-                addKeyListener(new PlayerTankKeyListener(playerOneTank, this));
-	}
-	*/
 
 	// удаляет все компоненты с карты, т.е.
 	// очищает поле.
@@ -274,105 +257,6 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		}
 		repaint();
 	}
-
-	/*public final void loadMap(final File mapFile) {
-		if (mapFile != null) {
-			battleField.setStaticticsToZero();
-			maxTanksCount = Integer.parseInt(GameConfig.getInstance()
-					.getProperty("tanksCount"));
-
-			if (playerOneTank == null) {
-				addPlayerOneTank(1);
-			} else {
-				playerOneTank.setBounds(0, Constants.gameFieldHeight
-						- Constants.tankSize, Constants.tankSize,
-						Constants.tankSize);
-			}
-			long startTime = System.currentTimeMillis();
-			FileInputStream loadMapStream = null;
-			ObjectInputStream loadMapStream2 = null;
-
-			*//*
-			 * JPanel panel = new JPanel(); panel.setBounds(0, 0, 100, 100);
-			 * panel.setBackground(Color.RED); battleField.add(panel);
-			 * battleField.repaint();
-			 *//*
-
-			// очередная порция хардкода. Надо
-			// прочитать про URL и URI потом :)
-			try {
-				loadMapStream = new FileInputStream(mapFile);
-				loadMapStream2 = new ObjectInputStream(new BufferedInputStream(
-						loadMapStream));
-				// components = (Component[]) loadMapStream2.readObject();
-				removeAllComponents();
-
-				// старая версия
-				Integer count = (Integer) loadMapStream2.readObject();
-				int read = 0;
-
-				*//*
-				 * JProgressBar progressBar = new JProgressBar();
-				 * progressBar.setStringPainted(true);
-				 * progressBar.setMinimum(0); progressBar.setMaximum(100);
-				 * progressBar.setBounds(battleField.getWidth() / 2 - 100,
-				 * battleField.getHeight() / 2 - 20, 200, 25);
-				 * battleField.add(progressBar); battleField.repaint();
-				 *//*
-				Object obj = null;
-				while ((obj = loadMapStream2.readObject()) != null) {
-					MapObject mapObject = (MapObject) obj;
-					addMapObject(mapObject.getX(), mapObject.getY(),
-							mapObject.getImageNum(), mapObject.getObjectSize());
-					*//*
-					 * try { Thread.sleep(50); } catch (InterruptedException e)
-					 * { e.printStackTrace(); //To change body of catch
-					 * statement use File | Settings | File Templates. }
-					 *//*
-					read++;
-					// progressBar.setValue(read*100/count);
-				}
-
-				*//*
-				 * List<MapObject> mapObjects = (List<MapObject>)
-				 * loadMapStream2.readObject(); for (MapObject mapObject:
-				 * mapObjects) { addMapObject(mapObject.getX(),
-				 * mapObject.getY(), mapObject.getImageNum(),
-				 * mapObject.getObjectSize()); }
-				 *//*
-			} catch (EOFException e) {
-
-			} catch (FileNotFoundException e) {
-				GameConfig.getInstance().writeErrorMessageToLog(e);
-			} catch (IOException e) {
-				GameConfig.getInstance().writeErrorMessageToLog(e);
-			} catch (ClassNotFoundException e) {
-				GameConfig.getInstance().writeErrorMessageToLog(e);
-			} catch (NullPointerException e) {
-				// GameConfig.getInstance().writeErrorMessageToLog(e);
-				e.printStackTrace();
-			} finally {
-				try {
-					loadMapStream2.close();
-					loadMapStream.close();
-
-					Component[] components = getComponents();
-					int count = 0;
-					for (Component component : components) {
-						if (component instanceof MapObject) {
-							count++;
-						}
-					}
-				} catch (IOException e) {
-					GameConfig.getInstance().writeErrorMessageToLog(e);
-				}
-			}
-			long stopTime = System.currentTimeMillis();
-			long elapsed = stopTime - startTime;
-			addEnemyTanks();
-			repaint();
-		}
-	}*/
 
 	public final void removeHorizontalLineOfBlocks(final int x, final int y, final int posCode) {
 		Component[] components = getComponents();
@@ -482,53 +366,41 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		}
 	}
 
-	public final void removeConcreteVertical(final int x, final int y,
-			int posCode, Rectangle intersection) {
+	public final void removeConcreteVertical(final int x, final int y, int posCode, Rectangle intersection) {
 		Component[] components = getComponents();
 		if (posCode == Shell.CENTER) {
-			findAndRemoveMapObject(x, y + 16, components,
-					Constants.CONCRETE_CODE);
-			findAndRemoveMapObject(x, y - 16, components,
-					Constants.CONCRETE_CODE);
+			findAndRemoveMapObject(x, y + 16, components, Constants.CONCRETE_CODE);
+			findAndRemoveMapObject(x, y - 16, components, Constants.CONCRETE_CODE);
 		} else if (posCode == Shell.H_UP) {
 			if (intersection.getY() == y) {
-				findAndRemoveMapObject(x, y + 16, components,
-						Constants.CONCRETE_CODE);
-				findAndRemoveMapObject(x, y - 16, components,
-						Constants.CONCRETE_CODE);
+				findAndRemoveMapObject(x, y + 16, components, Constants.CONCRETE_CODE);
+				findAndRemoveMapObject(x, y - 16, components, Constants.CONCRETE_CODE);
 			} else if (intersection.getY() == y + 8) {
-				if (findAndRemoveMapObject(x, y + 16, components,
-						Constants.CONCRETE_CODE)) {
-					findAndRemoveMapObject(x, y + 32, components,
-							Constants.CONCRETE_CODE);
+				if (findAndRemoveMapObject(x, y + 16, components, Constants.CONCRETE_CODE)) {
+					findAndRemoveMapObject(x, y + 32, components, Constants.CONCRETE_CODE);
 				}
 			}
 		} else if (posCode == Shell.H_DOWN) {
 			if (intersection.getY() == y) {
-				if (findAndRemoveMapObject(x, y - 16, components,
-						Constants.CONCRETE_CODE)) {
-					findAndRemoveMapObject(x, y - 32, components,
-							Constants.CONCRETE_CODE);
+				if (findAndRemoveMapObject(x, y - 16, components, Constants.CONCRETE_CODE)) {
+					findAndRemoveMapObject(x, y - 32, components, Constants.CONCRETE_CODE);
 				}
 			} else if (intersection.getY() == y + 8) {
-				findAndRemoveMapObject(x, y + 16, components,
-						Constants.CONCRETE_CODE);
-				findAndRemoveMapObject(x, y - 16, components,
-						Constants.CONCRETE_CODE);
+				findAndRemoveMapObject(x, y + 16, components, Constants.CONCRETE_CODE);
+				findAndRemoveMapObject(x, y - 16, components, Constants.CONCRETE_CODE);
 			}
 		}
 	}
 
-	private boolean findAndRemoveMapObject(final int x,
-										   final int y,
-										   final Component[] components,
-										   int objectCode) {
+	private boolean findAndRemoveMapObject(final int x, final int y, final Component[] components, int objectCode) {
 		boolean removed = false;
 		for (Component component : components) {
-			if (!(component instanceof AbstractTank) && !(component instanceof Shell)
+			if (!(component instanceof AbstractTank)
+					&& !(component instanceof Shell)
 					&& !(component instanceof Bonus)) {
 				MapObject mapObject = (MapObject) component;
-				if ((mapObject.getX() == x) && (mapObject.getY() == y)
+				if ((mapObject.getX() == x)
+						&& (mapObject.getY() == y)
 						&& (mapObject.getImageNum() == objectCode)) {
 					remove(mapObject);
 					repaint(mapObject.getBounds());
@@ -570,8 +442,7 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		// если гейм-овер, то пауза не должна
 		// работать.
 		int pauseCode;
-		pauseCode = Integer.parseInt(GameConfig.getInstance().getProperty(
-				"gamePause"));
+		pauseCode = Integer.parseInt(GameConfig.getInstance().getProperty("gamePause"));
 		if (e.getKeyCode() == pauseCode && !gameOver) {
 			KeyListener[] listeners = getListeners(KeyListener.class);
 			if (!gamePaused) {
@@ -584,24 +455,9 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		// рестарт после геймовера. !!! Когда
 		// будут готовы уровни - переделать!
 		int restartCode;
-		restartCode = Integer.parseInt(GameConfig.getInstance().getProperty(
-				"gameRestart"));
+		restartCode = Integer.parseInt(GameConfig.getInstance().getProperty("gameRestart"));
 		if (e.getKeyCode() == restartCode && gameOver) {
-
 			restart();
-
-			/*
-			 * removeAllComponents(); battleField.setStaticticsToZero();
-			 * enemyTanksOnField = 0; // загружаем первую
-			 * карту loadMap(GameConfig.getInstance().getCurrentMapFile());
-			 * 
-			 * addPlayerOneTank(1); // сбрасываем счетчик
-			 * танков, не вышедших на поле String count =
-			 * GameConfig.getInstance().getProperty("tanksCount"); maxTanksCount
-			 * = Integer.parseInt(count); addEnemyTanks(); gameOver = false;
-			 * add(new Bonus(), 2); // !!! необходимость этой
-			 * строки тут не ясна addKeyListener(playerOneTank);
-			 */
 		}
 	}
 
@@ -629,7 +485,7 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		if (enemyRespawner != null) {
 			enemyRespawner.stop();
 		}
-		gameMessage = new GameMessage(Constants.pauseMessageCode);
+		gameMessage = new GameMessage(Constants.PAUSE_MESSAGE_CODE);
 		gameMessage.setBounds(270, 256, 260, 88);
 		add(gameMessage, new Integer(3));
 		repaint();
@@ -660,62 +516,6 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		repaint();
 	}
 
-	/*public final void old_setPause() {
-		gamePaused = !gamePaused;
-
-		if (!gamePaused) {
-			Component[] components = getComponents();
-			for (Component component : components) {
-				if (component instanceof AbstractTank) {
-					AbstractTank tank = (AbstractTank) component;
-					if (tank.isPlayerControlled()) {
-//						removeKeyListener(tank);
-						// !! скорее всего это тут не
-						// надо
-						tank.stopAllTimers();
-					} else {
-						tank.stopAllTimers();
-					}
-				}
-				if (component instanceof Shell) {
-					Shell shell = (Shell) component;
-					shell.timer.stop();
-				}
-			}
-			if (enemyRespawner != null) {
-				enemyRespawner.stop();
-			}
-			// добавляем сообщение с паузой на
-			// экран
-			gameMessage = new GameMessage(Constants.pauseMessageCode);
-			gameMessage.setBounds(270, 256, 260, 88);
-			add(gameMessage, new Integer(3));
-			repaint();
-		} else {
-			Component[] components = getComponents();
-			for (Component component : components) {
-				if (component instanceof AbstractTank) {
-					AbstractTank tank = (AbstractTank) component;
-					if (tank.isPlayerControlled()) {
-                                            addKeyListener(new PlayerTankKeyListener(playerOneTank, this));
-//						addKeyListener(tank);
-					} else {
-						tank.startTimer();
-					}
-				}
-				if (component instanceof Shell) {
-					Shell shell = (Shell) component;
-					shell.timer.start();
-				}
-			}
-			if (enemyRespawner != null) {
-				enemyRespawner.start();
-			}
-			remove(gameMessage);
-			repaint();
-		}
-	}*/
-
 	public final void stopGame(int reasonCode) {
 		Component[] components = getComponents();
 		for (Component component : components) {
@@ -741,12 +541,6 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		add(gameMessage, new Integer(3));
 		repaint();
 	}
-
-/*
-	public final boolean isRightMouseButtonPressed() {
-		return rightMouseButtonPressed;
-	}
-*/
 
 	public final void setRightMouseButtonPressed(final boolean rmbPressed) {
 		this.rightMouseButtonPressed = rmbPressed;
@@ -886,18 +680,18 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 		// куда-то отдельно, в файле EnemyTankRespawner
 		// тоже
 
-		Rectangle enemyZone1 = new Rectangle(0, 0, Constants.tankSize,
-				Constants.tankSize);
-		Rectangle enemyZone2 = new Rectangle(Constants.gameFieldWidth / 2
-				- Constants.tankSize / 2 + 4, 0, Constants.tankSize,
-				Constants.tankSize);
-		Rectangle enemyZone3 = new Rectangle(Constants.gameFieldWidth
-				- Constants.tankSize, 0, Constants.tankSize, Constants.tankSize);
-		Rectangle pleerZone1 = new Rectangle(0, Constants.gameFieldHeight
-				- Constants.tankSize, Constants.tankSize, Constants.tankSize);
-		Rectangle pleerZone2 = new Rectangle(Constants.gameFieldWidth
-				- Constants.tankSize, Constants.gameFieldHeight
-				- Constants.tankSize, Constants.tankSize, Constants.tankSize);
+		Rectangle enemyZone1 = new Rectangle(0, 0, Constants.TANK_SIZE,
+				Constants.TANK_SIZE);
+		Rectangle enemyZone2 = new Rectangle(Constants.GAME_FIELD_WIDTH / 2
+				- Constants.TANK_SIZE / 2 + 4, 0, Constants.TANK_SIZE,
+				Constants.TANK_SIZE);
+		Rectangle enemyZone3 = new Rectangle(Constants.GAME_FIELD_WIDTH
+				- Constants.TANK_SIZE, 0, Constants.TANK_SIZE, Constants.TANK_SIZE);
+		Rectangle pleerZone1 = new Rectangle(0, Constants.GAME_FIELD_HEIGHT
+				- Constants.TANK_SIZE, Constants.TANK_SIZE, Constants.TANK_SIZE);
+		Rectangle pleerZone2 = new Rectangle(Constants.GAME_FIELD_WIDTH
+				- Constants.TANK_SIZE, Constants.GAME_FIELD_HEIGHT
+				- Constants.TANK_SIZE, Constants.TANK_SIZE, Constants.TANK_SIZE);
 		for (Component component : components) {
 			if (component.getBounds().intersects(enemyZone1)
 					|| component.getBounds().intersects(enemyZone2)
@@ -952,8 +746,8 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 				GameConfig.getInstance().increaseCurrentLevelNum();
 				if (mapAvaliable(GameConfig.getInstance().getCurrentLevel())) {
 					getPlayerOneTank().setBounds(0,
-							Constants.gameFieldHeight - Constants.tankSize,
-							Constants.tankSize, Constants.tankSize);
+							Constants.GAME_FIELD_HEIGHT - Constants.TANK_SIZE,
+							Constants.TANK_SIZE, Constants.TANK_SIZE);
 					switch (getPlayerOneTank().getStarsCount()) {
 					case 0:
 						getPlayerOneTank().setTankPicture(AbstractTank.G_TANK_UP);
@@ -977,15 +771,15 @@ public class GameFieldPanel extends JLayeredPane implements KeyListener {
 					stopEnemyRespawner();
 					new MapLoader(this, GameConfig.getInstance().getCurrentMapFile()).start();
 				} else {
-					stopGame(Constants.youWinMessageCode);
+					stopGame(Constants.YOU_WIN_MESSAGE_CODE);
 				}
 			}
 			tank.setAlive(false);
 			remove(tank);
 			drawExpolde(tank.getX(), tank.getY(), Constants.BIG_EXPLOSION_CODE,
-					Constants.tankSize);
-			repaint(tank.getX(), tank.getY(), Constants.tankSize,
-					Constants.tankSize);
+					Constants.TANK_SIZE);
+			repaint(tank.getX(), tank.getY(), Constants.TANK_SIZE,
+					Constants.TANK_SIZE);
 			tank = null;
 		}
 	}

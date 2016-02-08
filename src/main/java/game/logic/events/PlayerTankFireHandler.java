@@ -5,7 +5,7 @@
  */
 package game.logic.events;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.objects.MapObject;
 import game.objects.Shell;
@@ -17,15 +17,16 @@ import java.awt.event.KeyEvent;
 
 /**
  *
- * @author Павел
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
+//TODO РІРѕР·РјРѕР¶РЅРѕ, СЌС‚РѕС‚ РєР»Р°СЃСЃ РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ СЃРѕРІСЃРµРј.
 public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
 
     private AbstractTank playerTank;
     private GameFieldPanel gameFieldPanel;
     private Shell shell, shell2;
     private int currentBullets;
-//    TODO проверить, нужен ли этот класс и выпилить если не нужен
+//    TODO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     public PlayerTankFireHandler(AbstractTank playerTank, GameFieldPanel gameFieldPanel) {
         this.playerTank = playerTank;
         this.gameFieldPanel = gameFieldPanel;
@@ -51,10 +52,10 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                         MapObject mapObject = (MapObject) component;
                         if (mapObject.getImageNum() == 1
                                 && mapObject.getX() == playerTank.getX()
-                                + Constants.tankSize / 2
-                                - Constants.brickSize / 2
+                                + Constants.TANK_SIZE / 2
+                                - Constants.BRICK_SIZE / 2
                                 && mapObject.getY() == playerTank.getY()
-                                - Constants.brickSize) {
+                                - Constants.BRICK_SIZE) {
                             gameFieldPanel.remove(mapObject);
                             gameFieldPanel
                                     .removeHorizontalLineOfBlocks(
@@ -63,17 +64,17 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                                             Shell.CENTER);
                             gameFieldPanel.repaint(mapObject.getX());
                             gameFieldPanel.drawExpolde(playerTank.getX()
-                                    + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2,
-                                    playerTank.getY() - Constants.brickSize,
+                                    + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2,
+                                    playerTank.getY() - Constants.BRICK_SIZE,
                                     Constants.SMALL_EXPLOSION_CODE,
-                                    Constants.explosionSize);
+                                    Constants.EXPLOSION_SIZE);
                             gameFieldPanel.repaint(playerTank.getX()
-                                    + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2,
-                                    playerTank.getY() - Constants.brickSize,
-                                    Constants.explosionSize,
-                                    Constants.explosionSize);
+                                    + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2,
+                                    playerTank.getY() - Constants.BRICK_SIZE,
+                                    Constants.EXPLOSION_SIZE,
+                                    Constants.EXPLOSION_SIZE);
                             closeShot = true;
                             break;
                         }
@@ -82,11 +83,11 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                         if (!tank.isPlayerControlled()) {
                             if (!playerTank.isDoubleShot()) {
                                 shell1Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize / 2
-                                        - Constants.shellSize / 2,
-                                        playerTank.getY() - Constants.shellSize,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE / 2
+                                        - Constants.SHELL_SIZE / 2,
+                                        playerTank.getY() - Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 if (shell1Bounds.intersects(tank
                                         .getBounds())) {
                                     gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
@@ -96,18 +97,18 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                                 }
                             } else {
                                 shell1Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize / 2
-                                        - Constants.shellSize / 2
-                                        - Constants.shellSize, playerTank.getY()
-                                        - Constants.shellSize,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE / 2
+                                        - Constants.SHELL_SIZE / 2
+                                        - Constants.SHELL_SIZE, playerTank.getY()
+                                        - Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 shell2Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize / 2
-                                        + Constants.shellSize / 2,
-                                        playerTank.getY() - Constants.shellSize,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE / 2
+                                        + Constants.SHELL_SIZE / 2,
+                                        playerTank.getY() - Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 if (shell1Bounds.intersects(tank
                                         .getBounds())
                                         || shell2Bounds.intersects(tank
@@ -127,25 +128,25 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                 if (!closeShot) {
                     if (!playerTank.isDoubleShot()) {
                         shell1Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize / 2
-                                - Constants.shellSize / 2, playerTank.getY()
-                                - Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE / 2
+                                - Constants.SHELL_SIZE / 2, playerTank.getY()
+                                - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
                         shell1Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize / 2
-                                - Constants.shellSize / 2
-                                - Constants.shellSize, playerTank.getY()
-                                - Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE / 2
+                                - Constants.SHELL_SIZE / 2
+                                - Constants.SHELL_SIZE, playerTank.getY()
+                                - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                         shell2Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize / 2
-                                + Constants.shellSize / 2, playerTank.getY()
-                                - Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE / 2
+                                + Constants.SHELL_SIZE / 2, playerTank.getY()
+                                - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     }
                 }
             } else if (playerTank.getDirection() == Constants.DOWN) {
@@ -154,10 +155,10 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                         MapObject mapObject = (MapObject) component;
                         if (mapObject.getImageNum() == 1
                                 && mapObject.getX() == playerTank.getX()
-                                + Constants.tankSize / 2
-                                - Constants.brickSize / 2
+                                + Constants.TANK_SIZE / 2
+                                - Constants.BRICK_SIZE / 2
                                 && mapObject.getY() == playerTank.getY()
-                                + Constants.tankSize) {
+                                + Constants.TANK_SIZE) {
                             gameFieldPanel.remove(mapObject);
                             gameFieldPanel
                                     .removeHorizontalLineOfBlocks(
@@ -166,17 +167,17 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                                             Shell.CENTER);
                             gameFieldPanel.repaint(mapObject.getX());
                             gameFieldPanel.drawExpolde(playerTank.getX()
-                                    + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2,
-                                    playerTank.getY() + Constants.tankSize,
+                                    + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2,
+                                    playerTank.getY() + Constants.TANK_SIZE,
                                     Constants.SMALL_EXPLOSION_CODE,
-                                    Constants.explosionSize);
+                                    Constants.EXPLOSION_SIZE);
                             gameFieldPanel.repaint(playerTank.getX()
-                                    + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2,
-                                    playerTank.getY() + Constants.tankSize,
-                                    Constants.explosionSize,
-                                    Constants.explosionSize);
+                                    + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2,
+                                    playerTank.getY() + Constants.TANK_SIZE,
+                                    Constants.EXPLOSION_SIZE,
+                                    Constants.EXPLOSION_SIZE);
                             closeShot = true;
                             break;
                         }
@@ -185,11 +186,11 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                         if (!tank.isPlayerControlled()) {
                             if (!playerTank.isDoubleShot()) {
                                 shell1Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize / 2
-                                        - Constants.shellSize / 2,
-                                        playerTank.getY() + Constants.tankSize,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE / 2
+                                        - Constants.SHELL_SIZE / 2,
+                                        playerTank.getY() + Constants.TANK_SIZE,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 if (shell1Bounds.intersects(tank
                                         .getBounds())) {
                                     gameFieldPanel.battleField
@@ -202,18 +203,18 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                                 }
                             } else {
                                 shell1Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize / 2
-                                        - Constants.shellSize / 2
-                                        - Constants.shellSize, playerTank.getY()
-                                        + Constants.tankSize,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE / 2
+                                        - Constants.SHELL_SIZE / 2
+                                        - Constants.SHELL_SIZE, playerTank.getY()
+                                        + Constants.TANK_SIZE,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 shell2Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize / 2
-                                        + Constants.shellSize / 2,
-                                        playerTank.getY() + Constants.tankSize,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE / 2
+                                        + Constants.SHELL_SIZE / 2,
+                                        playerTank.getY() + Constants.TANK_SIZE,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 if (shell1Bounds.intersects(tank
                                         .getBounds())
                                         || shell2Bounds.intersects(tank
@@ -233,25 +234,25 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                 if (!closeShot) {
                     if (!playerTank.isDoubleShot()) {
                         shell1Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize / 2
-                                - Constants.shellSize / 2, playerTank.getY()
-                                + Constants.tankSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE / 2
+                                - Constants.SHELL_SIZE / 2, playerTank.getY()
+                                + Constants.TANK_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
                         shell1Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize / 2
-                                - Constants.shellSize / 2
-                                - Constants.shellSize, playerTank.getY()
-                                + Constants.tankSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE / 2
+                                - Constants.SHELL_SIZE / 2
+                                - Constants.SHELL_SIZE, playerTank.getY()
+                                + Constants.TANK_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                         shell2Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize / 2
-                                + Constants.shellSize / 2, playerTank.getY()
-                                + Constants.tankSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE / 2
+                                + Constants.SHELL_SIZE / 2, playerTank.getY()
+                                + Constants.TANK_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     }
                 }
             } else if (playerTank.getDirection() == Constants.LEFT) {
@@ -260,10 +261,10 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                         MapObject mapObject = (MapObject) component;
                         if (mapObject.getImageNum() == 1
                                 && mapObject.getX() == playerTank.getX()
-                                - Constants.brickSize
+                                - Constants.BRICK_SIZE
                                 && mapObject.getY() == playerTank.getY()
-                                + Constants.tankSize / 2
-                                - Constants.brickSize / 2) {
+                                + Constants.TANK_SIZE / 2
+                                - Constants.BRICK_SIZE / 2) {
                             gameFieldPanel.remove(mapObject);
                             // !! С‚СѓС‚ С‚РѕС‡РЅРѕ С†РµРЅС‚СЂ?
                             gameFieldPanel.removeVerticalLineOfBlocks(
@@ -272,17 +273,17 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                             gameFieldPanel.repaint(mapObject
                                     .getBounds());
                             gameFieldPanel.drawExpolde(playerTank.getX()
-                                    - Constants.brickSize, playerTank.getY()
-                                    + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2,
+                                    - Constants.BRICK_SIZE, playerTank.getY()
+                                    + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2,
                                     Constants.SMALL_EXPLOSION_CODE,
-                                    Constants.explosionSize);
+                                    Constants.EXPLOSION_SIZE);
                             gameFieldPanel.repaint(playerTank.getX()
-                                    - Constants.brickSize, playerTank.getY()
-                                    + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2,
-                                    Constants.explosionSize,
-                                    Constants.explosionSize);
+                                    - Constants.BRICK_SIZE, playerTank.getY()
+                                    + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2,
+                                    Constants.EXPLOSION_SIZE,
+                                    Constants.EXPLOSION_SIZE);
                             closeShot = true;
                             break;
                         }
@@ -291,11 +292,11 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                         if (!tank.isPlayerControlled()) {
                             if (!playerTank.isDoubleShot()) {
                                 shell1Bounds = new Rectangle(playerTank.getX()
-                                        - Constants.shellSize, playerTank.getY()
-                                        + Constants.tankSize / 2
-                                        - Constants.shellSize / 2,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        - Constants.SHELL_SIZE, playerTank.getY()
+                                        + Constants.TANK_SIZE / 2
+                                        - Constants.SHELL_SIZE / 2,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 if (shell1Bounds.intersects(tank
                                         .getBounds())) {
                                     gameFieldPanel.battleField
@@ -308,18 +309,18 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                                 }
                             } else {
                                 shell1Bounds = new Rectangle(playerTank.getX()
-                                        - Constants.shellSize, playerTank.getY()
-                                        + Constants.tankSize / 2
-                                        - Constants.shellSize / 2
-                                        - Constants.shellSize,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        - Constants.SHELL_SIZE, playerTank.getY()
+                                        + Constants.TANK_SIZE / 2
+                                        - Constants.SHELL_SIZE / 2
+                                        - Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 shell2Bounds = new Rectangle(playerTank.getX()
-                                        - Constants.shellSize, playerTank.getY()
-                                        + Constants.tankSize / 2
-                                        + Constants.shellSize / 2,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        - Constants.SHELL_SIZE, playerTank.getY()
+                                        + Constants.TANK_SIZE / 2
+                                        + Constants.SHELL_SIZE / 2,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 if (shell1Bounds.intersects(tank
                                         .getBounds())
                                         || shell2Bounds.intersects(tank
@@ -339,25 +340,25 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                 if (!closeShot) {
                     if (!playerTank.isDoubleShot()) {
                         shell1Bounds = new Rectangle(playerTank.getX()
-                                - Constants.shellSize, playerTank.getY()
-                                + Constants.tankSize / 2
-                                - Constants.shellSize / 2,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                - Constants.SHELL_SIZE, playerTank.getY()
+                                + Constants.TANK_SIZE / 2
+                                - Constants.SHELL_SIZE / 2,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
                         shell1Bounds = new Rectangle(playerTank.getX()
-                                - Constants.shellSize, playerTank.getY()
-                                + Constants.tankSize / 2
-                                - Constants.shellSize / 2
-                                - Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                - Constants.SHELL_SIZE, playerTank.getY()
+                                + Constants.TANK_SIZE / 2
+                                - Constants.SHELL_SIZE / 2
+                                - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                         shell2Bounds = new Rectangle(playerTank.getX()
-                                - Constants.shellSize, playerTank.getY()
-                                + Constants.tankSize / 2
-                                + Constants.shellSize / 2,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                - Constants.SHELL_SIZE, playerTank.getY()
+                                + Constants.TANK_SIZE / 2
+                                + Constants.SHELL_SIZE / 2,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     }
                 }
             } else if (playerTank.getDirection() == Constants.RIGHT) {
@@ -366,10 +367,10 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                         MapObject mapObject = (MapObject) component;
                         if (mapObject.getImageNum() == 1
                                 && mapObject.getX() == playerTank.getX()
-                                + Constants.tankSize
+                                + Constants.TANK_SIZE
                                 && mapObject.getY() == playerTank.getY()
-                                + Constants.tankSize / 2
-                                - Constants.brickSize / 2) {
+                                + Constants.TANK_SIZE / 2
+                                - Constants.BRICK_SIZE / 2) {
                             gameFieldPanel.remove(mapObject);
                             gameFieldPanel.removeVerticalLineOfBlocks(
                                     mapObject.getX(), mapObject.getY(),
@@ -377,31 +378,31 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                             gameFieldPanel.repaint(mapObject
                                     .getBounds());
                             gameFieldPanel.drawExpolde(playerTank.getX()
-                                    + Constants.tankSize, playerTank.getY()
-                                    + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2,
+                                    + Constants.TANK_SIZE, playerTank.getY()
+                                    + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2,
                                     Constants.SMALL_EXPLOSION_CODE,
-                                    Constants.explosionSize);
+                                    Constants.EXPLOSION_SIZE);
                             gameFieldPanel.repaint(playerTank.getX()
-                                    + Constants.tankSize, playerTank.getY()
-                                    + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2,
-                                    Constants.explosionSize,
-                                    Constants.explosionSize);
+                                    + Constants.TANK_SIZE, playerTank.getY()
+                                    + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2,
+                                    Constants.EXPLOSION_SIZE,
+                                    Constants.EXPLOSION_SIZE);
                             closeShot = true;
                             break;
-                        } // Проверяем столкновение пули с танком при
-                        // выстреле в упор.
+                        } // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ.
                     } else if (component instanceof AbstractTank) {
                         AbstractTank tank = (AbstractTank) component;
                         if (!tank.isPlayerControlled()) {
                             if (!playerTank.isDoubleShot()) {
                                 shell1Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize, playerTank.getY()
-                                        + Constants.tankSize / 2
-                                        - Constants.shellSize / 2,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE, playerTank.getY()
+                                        + Constants.TANK_SIZE / 2
+                                        - Constants.SHELL_SIZE / 2,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 if (shell1Bounds.intersects(tank
                                         .getBounds())) {
                                     gameFieldPanel.battleField
@@ -414,16 +415,16 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                                 }
                             } else {
                                 shell1Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize, playerTank.getY()
-                                        + Constants.shellSize,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE, playerTank.getY()
+                                        + Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 shell2Bounds = new Rectangle(playerTank.getX()
-                                        + Constants.tankSize, playerTank.getY()
-                                        + Constants.tankSize
-                                        - Constants.shellSize * 2,
-                                        Constants.shellSize,
-                                        Constants.shellSize);
+                                        + Constants.TANK_SIZE, playerTank.getY()
+                                        + Constants.TANK_SIZE
+                                        - Constants.SHELL_SIZE * 2,
+                                        Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                                 if (shell1Bounds.intersects(tank
                                         .getBounds())
                                         || shell2Bounds.intersects(tank
@@ -443,23 +444,23 @@ public class PlayerTankFireHandler extends KeyAdapter implements Runnable {
                 if (!closeShot) {
                     if (!playerTank.isDoubleShot()) {
                         shell1Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize, playerTank.getY()
-                                + Constants.tankSize / 2
-                                - Constants.shellSize / 2,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE, playerTank.getY()
+                                + Constants.TANK_SIZE / 2
+                                - Constants.SHELL_SIZE / 2,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
                         shell1Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize, playerTank.getY()
-                                + Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE, playerTank.getY()
+                                + Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                         shell2Bounds = new Rectangle(playerTank.getX()
-                                + Constants.tankSize, playerTank.getY()
-                                + Constants.tankSize
-                                - Constants.shellSize * 2,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                                + Constants.TANK_SIZE, playerTank.getY()
+                                + Constants.TANK_SIZE
+                                - Constants.SHELL_SIZE * 2,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     }
                 }
             }

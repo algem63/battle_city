@@ -8,7 +8,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-
+//TODO Возможно, этот класс можно удалить совсем
 public class PlayerTankUpStartMovementAction extends AbstractAction {
 
 	private AbstractTank playerTank;	

@@ -1,16 +1,18 @@
-package game.gui;
+package game.gui.bf;
 
+import game.gui.common.BasicForm;
+import game.gui.game.GameFieldPanel;
 import game.gui.intro.IntroForm;
 import game.logic.GameConfig;
-import game.logic.MapLoader;
+import game.gui.game.MapLoader;
 
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 public class BattleField extends BasicForm {
     private final int FORM_WIDTH = 1000;
@@ -35,45 +37,22 @@ public class BattleField extends BasicForm {
     public BattleField() throws HeadlessException {
         super();
         setTitle("Battle Field");
-        setBounds(calculateXStartCoord(FORM_WIDTH),
-                  calculateYStartCoord(FORM_HEIGHT),
-                FORM_WIDTH,
-                FORM_HEIGHT);
+        setBounds(calculateXStartCoord(FORM_WIDTH), calculateYStartCoord(FORM_HEIGHT), FORM_WIDTH, FORM_HEIGHT);
         addComponents();
         repaint();
     }
 
     @Override
     public final void addComponents() {
-        addWindowListener(new WindowListener() {
-            public void windowOpened(final WindowEvent e) {
-            }
-
-            public void windowClosing(final WindowEvent e) {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
                 gameFieldPanel.stopAllTimersOnExit();
                 gameFieldPanel.stopEnemyRespawner();
                 GameConfig.getInstance().setCurrentLevel(1);
                 new IntroForm();
             }
-
-            public void windowClosed(final WindowEvent e) {
-            }
-
-            public void windowIconified(final WindowEvent e) {
-            }
-
-            public void windowDeiconified(final WindowEvent e) {
-            }
-
-            public void windowActivated(final WindowEvent e) {
-            }
-
-            public void windowDeactivated(final WindowEvent e) {
-            }
         });
-
-        /*gameFieldPanel = new GameFieldPanel(this);
-        add(gameFieldPanel);*/
 
         levelNum = new JLabel("LEVEL ");
         levelNum.setBounds(820, 3, 80, 30);

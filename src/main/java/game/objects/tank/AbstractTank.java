@@ -1,6 +1,6 @@
 package game.objects.tank;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.ShootHandler;
 import game.objects.Shell;
 import java.awt.Graphics;

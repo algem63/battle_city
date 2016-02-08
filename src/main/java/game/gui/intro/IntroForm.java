@@ -1,6 +1,9 @@
 package game.gui.intro;
 
-import game.gui.*;
+import game.gui.bf.BattleField;
+import game.gui.common.BasicForm;
+import game.gui.editor.MapDesigner;
+import game.gui.options.OptionsForm;
 import game.logic.GameConfig;
 
 import javax.swing.*;

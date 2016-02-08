@@ -1,5 +1,6 @@
-package game.gui;
+package game.gui.options;
 
+import game.gui.options.PlayerTabPane;
 import game.logic.GameConfig;
 
 import javax.swing.JPanel;
@@ -17,11 +18,14 @@ public class PlayerTankPictureLoader extends JPanel {
 
     private BufferedImage playerTankPicture;
 
-    public PlayerTankPictureLoader(String playerNum) {
-        if (playerNum.equals("one")) {
-            playerTankPicture = GameConfig.getInstance().getPlayerOneTankImage();
-        } else if (playerNum.equals("two")) {
-            playerTankPicture = GameConfig.getInstance().getPlayerTwoTankImage();
+    public PlayerTankPictureLoader(int playerNum) {
+        switch (playerNum) {
+            case PlayerTabPane.FIRST:
+                playerTankPicture = GameConfig.getInstance().getPlayerOneTankImage();
+                break;
+            case PlayerTabPane.SECOND:
+                playerTankPicture = GameConfig.getInstance().getPlayerTwoTankImage();
+                break;
         }
     }
     

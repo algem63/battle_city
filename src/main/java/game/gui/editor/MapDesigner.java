@@ -1,8 +1,9 @@
-package game.gui;
+package game.gui.editor;
 
+import game.gui.common.BasicForm;
+import game.gui.game.GameFieldPanel;
 import game.gui.intro.IntroForm;
 import game.logic.GameConfig;
-import game.logic.MapFileFilter;
 import game.objects.MapObject;
 
 import javax.swing.BorderFactory;
@@ -251,9 +252,9 @@ public class MapDesigner extends BasicForm {
         gameFieldPanel.setBounds(3, 62, 800, 600);
         add(gameFieldPanel);
         
-        /*for (int i = 0; i < gameFieldPanel.getWidth(); i+= Constants.brickSize) {
-            for (int j = 0; j < gameFieldPanel.getHeight(); j+= Constants.brickSize) {
-                gameFieldPanel.addMapObject(i, j, 1, Constants.brickSize);
+        /*for (int i = 0; i < gameFieldPanel.getWidth(); i+= Constants.BRICK_SIZE) {
+            for (int j = 0; j < gameFieldPanel.getHeight(); j+= Constants.BRICK_SIZE) {
+                gameFieldPanel.addMapObject(i, j, 1, Constants.BRICK_SIZE);
             }
         }
         gameFieldPanel.repaint();*/

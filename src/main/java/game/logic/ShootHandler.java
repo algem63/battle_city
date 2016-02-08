@@ -1,6 +1,6 @@
 package game.logic;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.objects.MapObject;
 import game.objects.Shell;
 import game.objects.tank.AbstractTank;
@@ -17,7 +17,7 @@ public class ShootHandler implements ActionListener {
 
     private AbstractTank tank;
     private GameFieldPanel gameFieldPanel;
-//TODO очень сильно оптимизировать этот класс
+//TODO пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     public ShootHandler(AbstractTank tank, GameFieldPanel gameFieldPanel) {
         this.tank = tank;
         this.gameFieldPanel = gameFieldPanel;
@@ -33,19 +33,19 @@ public class ShootHandler implements ActionListener {
                 if (!closeShot) {
                     shell1Bounds = getFirstShellBounds();
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2,
-                                tank.getY() - Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2,
+                                tank.getY() - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2 - Constants.shellSize,
-                                tank.getY() - Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 + Constants.shellSize / 2,
-                                tank.getY() - Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2 - Constants.SHELL_SIZE,
+                                tank.getY() - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 + Constants.SHELL_SIZE / 2,
+                                tank.getY() - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     }
                 }
                 break;
@@ -53,19 +53,19 @@ public class ShootHandler implements ActionListener {
                 closeShot = checkCloseShotDown();
                 if (!closeShot) {
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2,
-                                tank.getY() + Constants.tankSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2,
+                                tank.getY() + Constants.TANK_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2 - Constants.shellSize,
-                                tank.getY() + Constants.tankSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 + Constants.shellSize / 2,
-                                tank.getY() + Constants.tankSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2 - Constants.SHELL_SIZE,
+                                tank.getY() + Constants.TANK_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 + Constants.SHELL_SIZE / 2,
+                                tank.getY() + Constants.TANK_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     }
                 }
                 break;
@@ -73,19 +73,19 @@ public class ShootHandler implements ActionListener {
                 closeShot = checkCloseShotLeft();
                 if (!closeShot) {
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() - Constants.shellSize,
-                                tank.getY() + Constants.tankSize / 2 - Constants.shellSize / 2,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE,
+                                tank.getY() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() - Constants.shellSize,
-                                tank.getY() + Constants.tankSize / 2 - Constants.shellSize / 2 - Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() - Constants.shellSize,
-                                tank.getY() + Constants.tankSize / 2 + Constants.shellSize / 2,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE,
+                                tank.getY() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2 - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE,
+                                tank.getY() + Constants.TANK_SIZE / 2 + Constants.SHELL_SIZE / 2,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     }
                 }
                 break;
@@ -93,19 +93,19 @@ public class ShootHandler implements ActionListener {
                 closeShot = checkCloseShotRight();
                 if (!closeShot) {
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize,
-                                tank.getY() + Constants.tankSize / 2 - Constants.shellSize / 2,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE,
+                                tank.getY() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize,
-                                tank.getY() + Constants.shellSize,
-                                Constants.shellSize,
-                                Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize,
-                                tank.getY() + Constants.tankSize - Constants.shellSize * 2,
-                                Constants.shellSize,
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE,
+                                tank.getY() + Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE,
+                                tank.getY() + Constants.TANK_SIZE - Constants.SHELL_SIZE * 2,
+                                Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     }
                 }
                 break;
@@ -168,19 +168,19 @@ public class ShootHandler implements ActionListener {
             if (component instanceof MapObject) {
                 MapObject mapObject = (MapObject) component;
                 if (mapObject.getImageNum() == 1
-                        && mapObject.getX() == tank.getX() + Constants.tankSize
-                        && mapObject.getY() == tank.getY() + Constants.tankSize / 2 - Constants.brickSize / 2) {
+                        && mapObject.getX() == tank.getX() + Constants.TANK_SIZE
+                        && mapObject.getY() == tank.getY() + Constants.TANK_SIZE / 2 - Constants.BRICK_SIZE / 2) {
                     gameFieldPanel.remove(mapObject);
                     gameFieldPanel.removeVerticalLineOfBlocks(mapObject.getX(),
                             mapObject.getY(), Shell.CENTER);
-                    gameFieldPanel.drawExpolde(tank.getX() + Constants.tankSize,
-                            tank.getY() + Constants.tankSize / 2 - Constants.explosionSize / 2,
+                    gameFieldPanel.drawExpolde(tank.getX() + Constants.TANK_SIZE,
+                            tank.getY() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
                             Constants.SMALL_EXPLOSION_CODE,
-                            Constants.explosionSize);
-                    gameFieldPanel.repaint(tank.getX() + Constants.tankSize,
-                            tank.getY() + Constants.tankSize / 2 - Constants.explosionSize / 2,
-                            Constants.explosionSize,
-                            Constants.explosionSize);
+                            Constants.EXPLOSION_SIZE);
+                    gameFieldPanel.repaint(tank.getX() + Constants.TANK_SIZE,
+                            tank.getY() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                            Constants.EXPLOSION_SIZE,
+                            Constants.EXPLOSION_SIZE);
                     closeShot = true;
                     break;
                 }
@@ -196,19 +196,19 @@ public class ShootHandler implements ActionListener {
             if (component instanceof MapObject) {
                 MapObject mapObject = (MapObject) component;
                 if (mapObject.getImageNum() == 1
-                        && mapObject.getX() == tank.getX() - Constants.brickSize
-                        && mapObject.getY() == tank.getY() + Constants.tankSize / 2 - Constants.brickSize / 2) {
+                        && mapObject.getX() == tank.getX() - Constants.BRICK_SIZE
+                        && mapObject.getY() == tank.getY() + Constants.TANK_SIZE / 2 - Constants.BRICK_SIZE / 2) {
                     gameFieldPanel.remove(mapObject);
                     gameFieldPanel.removeVerticalLineOfBlocks(mapObject.getX(),
                             mapObject.getY(), Shell.CENTER);
-                    gameFieldPanel.drawExpolde(tank.getX() - Constants.brickSize,
-                            tank.getY() + Constants.tankSize / 2 - Constants.explosionSize / 2,
+                    gameFieldPanel.drawExpolde(tank.getX() - Constants.BRICK_SIZE,
+                            tank.getY() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
                             Constants.SMALL_EXPLOSION_CODE,
-                            Constants.explosionSize);
-                    gameFieldPanel.repaint(tank.getX() - Constants.brickSize,
-                            tank.getY() + Constants.tankSize / 2 - Constants.explosionSize / 2,
-                            Constants.explosionSize,
-                            Constants.explosionSize);
+                            Constants.EXPLOSION_SIZE);
+                    gameFieldPanel.repaint(tank.getX() - Constants.BRICK_SIZE,
+                            tank.getY() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                            Constants.EXPLOSION_SIZE,
+                            Constants.EXPLOSION_SIZE);
                     closeShot = true;
                     break;
                 }
@@ -224,19 +224,19 @@ public class ShootHandler implements ActionListener {
             if (component instanceof MapObject) {
                 MapObject mapObject = (MapObject) component;
                 if (mapObject.getImageNum() == 1
-                        && mapObject.getX() == tank.getX() + Constants.tankSize / 2 - Constants.brickSize / 2
-                        && mapObject.getY() == tank.getY() + Constants.tankSize) {
+                        && mapObject.getX() == tank.getX() + Constants.TANK_SIZE / 2 - Constants.BRICK_SIZE / 2
+                        && mapObject.getY() == tank.getY() + Constants.TANK_SIZE) {
                     gameFieldPanel.remove(mapObject);
                     gameFieldPanel.removeHorizontalLineOfBlocks(mapObject.getX(),
                             mapObject.getY(), Shell.CENTER);
-                    gameFieldPanel.drawExpolde(tank.getX() + Constants.tankSize / 2 - Constants.explosionSize / 2,
-                            tank.getY() + Constants.tankSize,
+                    gameFieldPanel.drawExpolde(tank.getX() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                            tank.getY() + Constants.TANK_SIZE,
                             Constants.SMALL_EXPLOSION_CODE,
-                            Constants.explosionSize);
-                    gameFieldPanel.repaint(tank.getX() + Constants.tankSize / 2 - Constants.explosionSize / 2,
-                            tank.getY() + Constants.tankSize,
-                            Constants.explosionSize,
-                            Constants.explosionSize);
+                            Constants.EXPLOSION_SIZE);
+                    gameFieldPanel.repaint(tank.getX() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                            tank.getY() + Constants.TANK_SIZE,
+                            Constants.EXPLOSION_SIZE,
+                            Constants.EXPLOSION_SIZE);
                     closeShot = true;
                     break;
                 }
@@ -252,19 +252,19 @@ public class ShootHandler implements ActionListener {
             if (component instanceof MapObject) {
                 MapObject mapObject = (MapObject) component;
                 if (mapObject.getImageNum() == 1
-                        && mapObject.getX() == tank.getX() + Constants.tankSize / 2 - Constants.brickSize / 2
-                        && mapObject.getY() == tank.getY() - Constants.brickSize) {
+                        && mapObject.getX() == tank.getX() + Constants.TANK_SIZE / 2 - Constants.BRICK_SIZE / 2
+                        && mapObject.getY() == tank.getY() - Constants.BRICK_SIZE) {
                     gameFieldPanel.remove(mapObject);
                     gameFieldPanel.removeHorizontalLineOfBlocks(mapObject.getX(),
                             mapObject.getY(), Shell.CENTER);
-                    gameFieldPanel.drawExpolde(tank.getX() + Constants.tankSize / 2 - Constants.explosionSize / 2,
-                            tank.getY() - Constants.brickSize,
+                    gameFieldPanel.drawExpolde(tank.getX() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                            tank.getY() - Constants.BRICK_SIZE,
                             Constants.SMALL_EXPLOSION_CODE,
-                            Constants.explosionSize);
-                    gameFieldPanel.repaint(tank.getX() + Constants.tankSize / 2 - Constants.explosionSize / 2,
-                            tank.getY() - Constants.brickSize,
-                            Constants.explosionSize,
-                            Constants.explosionSize);
+                            Constants.EXPLOSION_SIZE);
+                    gameFieldPanel.repaint(tank.getX() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                            tank.getY() - Constants.BRICK_SIZE,
+                            Constants.EXPLOSION_SIZE,
+                            Constants.EXPLOSION_SIZE);
                     closeShot = true;
                     break;
                 }
@@ -277,37 +277,37 @@ public class ShootHandler implements ActionListener {
         int x = 0, y = 0;
         switch (tank.getDirection()) {
             case Constants.UP:
-                x = tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2;
+                x = tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2;
                 if (tank.isDoubleShot()) {
-                    x -= Constants.shellSize;
+                    x -= Constants.SHELL_SIZE;
                 }
-                y = tank.getY() - Constants.shellSize;                
+                y = tank.getY() - Constants.SHELL_SIZE;
                 break;
             case Constants.DOWN:
-                x = tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2;
+                x = tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2;
                 if (tank.isDoubleShot()) {
-                    x -= Constants.shellSize;
+                    x -= Constants.SHELL_SIZE;
                 }
-                y = tank.getY() + Constants.tankSize;
+                y = tank.getY() + Constants.TANK_SIZE;
                 break;
             case Constants.LEFT:
-                x = tank.getX() - Constants.shellSize;
-                y = tank.getY() + Constants.tankSize / 2 - Constants.shellSize / 2;
+                x = tank.getX() - Constants.SHELL_SIZE;
+                y = tank.getY() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2;
                 if (tank.isDoubleShot()) {
-                    y -= Constants.shellSize;
+                    y -= Constants.SHELL_SIZE;
                 }
                 break;
             case Constants.RIGHT:
-                x = tank.getX() + Constants.tankSize;
+                x = tank.getX() + Constants.TANK_SIZE;
                 if (!tank.isDoubleShot()) {
-                    y = tank.getY() + Constants.tankSize / 2 - Constants.shellSize / 2;
+                    y = tank.getY() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2;
                 } else {
-                    y = tank.getY() + Constants.shellSize;
+                    y = tank.getY() + Constants.SHELL_SIZE;
                 }                
                 break;
             default:
                 break;
         }
-        return new Rectangle(x, y, Constants.shellSize, Constants.shellSize);
+        return new Rectangle(x, y, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
     }
 }

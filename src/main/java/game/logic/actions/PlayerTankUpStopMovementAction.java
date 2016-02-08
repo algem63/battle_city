@@ -12,8 +12,9 @@ import javax.swing.AbstractAction;
 
 /**
  *
- * @author �����
+ * @author �����
  */
+//TODO Возможно, этот класс можно удалить совсем
 public class PlayerTankUpStopMovementAction extends AbstractAction {
 
     private AbstractTank playerTank;

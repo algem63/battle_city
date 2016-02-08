@@ -8,21 +8,21 @@ package game.logic;
  * To change this template use File | Settings | File Templates.
  */
 public final class Constants {
-    public static final int tankSize = 40;
-    public static final int shellSize = 8;
-    public static final int gameFieldWidth = 800;
-    public static final int gameFieldHeight = 600;
-    public static final int stepValue = 8;
-    public static final int horizontalCellsCount = 99;
-    public static final int verticalCellsCount = 74;
+    public static final int TANK_SIZE = 40;
+    public static final int SHELL_SIZE = 8;
+    public static final int GAME_FIELD_WIDTH = 800;
+    public static final int GAME_FIELD_HEIGHT = 600;
+    public static final int STEP_VALUE = 8;
+    public static final int HORIZONTAL_CELLS_COUNT = 99;
+    public static final int VERTICAL_CELLS_COUNT = 74;
 
     // размеры объектов на карте
-    public static final int brickSize = 8;
-    public static final int concreteSize = 16;
-    public static final int waterSize = 16;
-    public static final int hqSize = 40;
-    public static final int explosionSize = 16;
-    public static final int bonusSize = 40;
+    public static final int BRICK_SIZE = 8;
+    public static final int CONCRETE_SIZE = 16;
+    public static final int WATER_SIZE = 16;
+    public static final int HQ_SIZE = 40;
+    public static final int EXPLOSION_SIZE = 16;
+    public static final int BONUS_SIZE = 40;
 
     // картинки
     public static final String G2_SHELL_UP = "/images/G2ShellT.gif";
@@ -30,38 +30,38 @@ public final class Constants {
     public static final String G2_SHELL_LEFT = "/images/G2ShellL.gif";
     public static final String G2_SHELL_RIGHT = "/images/G2ShellR.gif";
 
-    public static final String shellUp = "/images/ShellT.png";
-    public static final String shellDown = "/images/ShellB.png";
-    public static final String shellLeft = "/images/ShellL.png";
-    public static final String shellRight = "/images/ShellR.png";
+    public static final String SHELL_UP = "/images/ShellT.png";
+    public static final String SHELL_DOWN = "/images/ShellB.png";
+    public static final String SHELL_LEFT = "/images/ShellL.png";
+    public static final String SHELL_RIGHT = "/images/ShellR.png";
 
-    public static final String playerTwoTankUp = "/images/Y2ShellT.gif";
-    public static final String playerTwoTankDown = "/images/Y2ShellB.gif";
-    public static final String playerTwoTankLeft = "/images/Y2ShellL.gif";
-    public static final String playerTwoTankRight = "/images/Y2ShellR.gif";
+    public static final String PLAYER_TWO_TANK_UP = "/images/Y2ShellT.gif";
+    public static final String PLAYER_TWO_TANK_DOWN = "/images/Y2ShellB.gif";
+    public static final String PLAYER_TWO_TANK_LEFT = "/images/Y2ShellL.gif";
+    public static final String PLAYER_TWO_TANK_RIGHT = "/images/Y2ShellR.gif";
 
-    public static final String configFile = "./settings.properties";
-    public static final String defaultConfig = "/config.properties";
+    public static final String CONFIG_FILE = "./settings.properties";
+    public static final String DEFAULT_CONFIG = "/config.properties";
 
-    public static final String pauseImage ="/images/Pause.png";
-    public static final String gameOverImage = "/images/GameOver.png";
-    public static final String youWinImage = "/images/You Win.png";
+    public static final String PAUSE_IMAGE ="/images/Pause.png";
+    public static final String GAME_OVER_IMAGE = "/images/GameOver.png";
+    public static final String YOU_WIN_IMAGE = "/images/You Win.png";
 
-    public static final String starBonusImage = "/images/STAR.png";
-    public static final String lifeBonusImage = "/images/LIFE.png";
-    public static final String spadeBonusImage = "/images/SPADE.png";
+    public static final String STAR_BONUS_IMAGE = "/images/STAR.png";
+    public static final String LIFE_BONUS_IMAGE = "/images/LIFE.png";
+    public static final String SPADE_BONUS_IMAGE = "/images/SPADE.png";
 
     // цифровые коды взрывов
     public final static int SMALL_EXPLOSION_CODE = 5;
     public final static int BIG_EXPLOSION_CODE = 6;
 
     // цифровые коды нажатых клавиш
-    public final static int pauseKeyCode = 1;
+    public final static int PAUSE_KEY_CODE = 1;
 
     // цифровые коды игровых сообщений
-    public final static int pauseMessageCode = 1;
-    public final static int gameOverMessageCode = 2;
-    public final static int youWinMessageCode = 3;
+    public final static int PAUSE_MESSAGE_CODE = 1;
+    public final static int GAME_OVER_MESSAGE_CODE = 2;
+    public final static int YOU_WIN_MESSAGE_CODE = 3;
 
     // цифровые коды направлений
     public final static int UP = 1;

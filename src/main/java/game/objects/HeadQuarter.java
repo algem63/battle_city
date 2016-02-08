@@ -1,6 +1,6 @@
 package game.objects;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.logic.GameConfig;
 import javax.swing.ImageIcon;
@@ -19,7 +19,7 @@ public class HeadQuarter extends MapObject {
     private int level;
 
     public HeadQuarter(int level, int x, int y, GameFieldPanel panel) {
-        super(x, y, Constants.hqSize, 4, panel);
+        super(x, y, Constants.HQ_SIZE, 4, panel);
         this.level = level;
         setObjectImage(START_LEVEL_VALUE);
     }
@@ -50,7 +50,7 @@ public class HeadQuarter extends MapObject {
     }
     
     public void drawExplode() {
-        panel.drawExpolde(getX(), getY(), Constants.BIG_EXPLOSION_CODE, Constants.hqSize);
+        panel.drawExpolde(getX(), getY(), Constants.BIG_EXPLOSION_CODE, Constants.HQ_SIZE);
     }
 
     @Override

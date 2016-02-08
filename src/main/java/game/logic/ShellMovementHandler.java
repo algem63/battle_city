@@ -1,7 +1,8 @@
 package game.logic;
 
-import game.gui.GameFieldPanel;
-import game.gui.GameMessage;
+import game.gui.game.MapLoader;
+import game.gui.game.GameFieldPanel;
+import game.gui.game.GameMessage;
 import game.objects.Bonus;
 import game.objects.HeadQuarter;
 import game.objects.MapObject;
@@ -12,6 +13,11 @@ import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static game.logic.Constants.*;
+import static game.logic.Constants.BIG_EXPLOSION_CODE;
+import static game.logic.Constants.HQ_SIZE;
+import static game.objects.Shell.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -46,63 +52,52 @@ public class ShellMovementHandler implements ActionListener {
         boolean hit = false,
                 shellMovementCondition = false;
         hit = checkCloseShot();
-        Component component = null;
+        //Component component = null;
         switch (directionCode) {
             case ShellMovementHandler.UP :
-                temp = posY - Constants.stepValue;
-                shellRect = new Rectangle(posX,
-                                          posY - Constants.stepValue,
-                                          Constants.shellSize,
-                                          Constants.shellSize);
-                component = gameFieldPanel.getComponentAt(shell.getX(), shell.getY() - Constants.shellSize);
+                temp = posY - STEP_VALUE;
+                shellRect = new Rectangle(posX, posY - STEP_VALUE, SHELL_SIZE, SHELL_SIZE);
+//                component = gameFieldPanel.getComponentAt(shell.getX(), shell.getY() - Constants.SHELL_SIZE);
                 break;
             case ShellMovementHandler.DOWN :
-                temp = posY + Constants.stepValue + Constants.shellSize;
-                shellRect = new Rectangle(posX,
-                                          posY + Constants.stepValue,
-                                          Constants.shellSize,
-                                          Constants.shellSize);
-                component = gameFieldPanel.getComponentAt(shell.getX(), shell.getY());
+                temp = posY + STEP_VALUE + SHELL_SIZE;
+                shellRect = new Rectangle(posX, posY + STEP_VALUE, SHELL_SIZE, SHELL_SIZE);
+//                component = gameFieldPanel.getComponentAt(shell.getX(), shell.getY());
                 break;
             case ShellMovementHandler.LEFT :
-                temp = posX - Constants.stepValue;
-                shellRect = new Rectangle(posX - Constants.stepValue,
-                                          posY,
-                                          Constants.shellSize,
-                                          Constants.shellSize);
-                component = gameFieldPanel.getComponentAt(shell.getX() + Constants.shellSize, shell.getY());
+                temp = posX - STEP_VALUE;
+                shellRect = new Rectangle(posX - STEP_VALUE, posY, SHELL_SIZE, SHELL_SIZE);
+//                component = gameFieldPanel.getComponentAt(shell.getX() + Constants.SHELL_SIZE, shell.getY());
                 break;
             case ShellMovementHandler.RIGHT :
-                temp = posX + Constants.stepValue + Constants.shellSize;
-                shellRect = new Rectangle(posX + Constants.stepValue,
-                                          posY,
-                                          Constants.shellSize,
-                                          Constants.shellSize);
-                component = gameFieldPanel.getComponentAt(shell.getX() - Constants.shellSize, shell.getY());
+                temp = posX + STEP_VALUE + SHELL_SIZE;
+                shellRect = new Rectangle(posX + STEP_VALUE, posY, SHELL_SIZE, SHELL_SIZE);
+//                component = gameFieldPanel.getComponentAt(shell.getX() - Constants.SHELL_SIZE, shell.getY());
                 break;
         }        
         for (Component mapObject: gameFieldPanel.getComponents()) {
             if (mapObject instanceof MapObject) {            	
                 MapObject obj = (MapObject) mapObject;
+                //TODO исправить возможный NPE
                 if (shellRect.intersects(obj.getBounds())
-                        && obj.getImageNum() == Constants.CONCRETE_CODE) {                	
+                        && obj.getImageNum() == CONCRETE_CODE) {
                     hit = shellHitConcrete(shellRect, obj);
-                    // TODO ��� ���� �������� break ������!
                 }
                 if (shellRect.intersects(obj.getBounds())
-                        && obj.getImageNum() == Constants.BRICK_CODE) {                	
+                        && obj.getImageNum() == BRICK_CODE) {
                     hit = true;
                     shellHitBrick(obj);
                 }
                 if (shellRect.intersects(obj.getBounds())
-                        && obj.getImageNum() == Constants.HQ_CODE) {                	
+                        && obj.getImageNum() == HQ_CODE) {
                     hit = true;
                     shellHitHQ(obj);
                 }
             }
             if (mapObject instanceof AbstractTank) {            	
                 AbstractTank tank = (AbstractTank) mapObject;
-                if (shellRect.intersects(tank.getBounds())) {                	
+                //TODO исправить возможный NPE
+                if (shellRect.intersects(tank.getBounds())) {
                     hit = true;
                     if (this.tank.isPlayerControlled()
                             != tank.isPlayerControlled()) {                       
@@ -124,19 +119,19 @@ public class ShellMovementHandler implements ActionListener {
                 shellMovementCondition = temp>=0 && !hit;
                 break;
             case ShellMovementHandler.DOWN :
-                shellMovementCondition = temp <= Constants.gameFieldHeight && !hit;
+                shellMovementCondition = temp <= GAME_FIELD_HEIGHT && !hit;
                 break;
             case ShellMovementHandler.LEFT :
                 shellMovementCondition = temp>=0 && !hit;
                 break;
             case ShellMovementHandler.RIGHT :
-                shellMovementCondition = temp<= Constants.gameFieldWidth && !hit;
+                shellMovementCondition = temp<= GAME_FIELD_WIDTH && !hit;
                 break;
         }        
         if (shellMovementCondition) {
             shell.setBounds(shellRect);
         } 
-        else {        	
+        else {
             shell.timer.stop();
             shell.removeShellFromTank();            
             tank.decreaseCurrentBulletsNum();
@@ -165,8 +160,8 @@ public class ShellMovementHandler implements ActionListener {
 
     private void shellHitEnemyTank(AbstractTank tank1, boolean superTank) {
         if (tank1.getStarsCount() == 4) {
-            gameFieldPanel.drawExpolde(tank1.getX(), tank1.getY(), Constants.BIG_EXPLOSION_CODE, Constants.tankSize);
-            gameFieldPanel.repaint(tank1.getX(), tank1.getY(), Constants.tankSize, Constants.tankSize);
+            gameFieldPanel.drawExpolde(tank1.getX(), tank1.getY(), BIG_EXPLOSION_CODE, TANK_SIZE);
+            gameFieldPanel.repaint(tank1.getX(), tank1.getY(), TANK_SIZE, TANK_SIZE);
             tank1.setStarsCountToZero();
             tank1.setDoubleShot(false);
             tank1.getMovementTimer().setDelay(75);
@@ -197,13 +192,13 @@ public class ShellMovementHandler implements ActionListener {
                 gameFieldPanel.battleField.decreasePlayerOneLifeValue();
                 gameFieldPanel.addPlayerOneTank(life);
             } else {
-                gameFieldPanel.stopGame(Constants.gameOverMessageCode);
+                gameFieldPanel.stopGame(GAME_OVER_MESSAGE_CODE);
             }
         }
         if (!superTank) {
             tank1.setAlive(false);
             gameFieldPanel.remove(tank1);
-            gameFieldPanel.drawExpolde(tank1.getX(), tank1.getY(), Constants.BIG_EXPLOSION_CODE, Constants.tankSize);
+            gameFieldPanel.drawExpolde(tank1.getX(), tank1.getY(), BIG_EXPLOSION_CODE, TANK_SIZE);
             gameFieldPanel.repaint();
             gameFieldPanel.setPlayerOneTank(null);
         }
@@ -212,90 +207,98 @@ public class ShellMovementHandler implements ActionListener {
     private void shellHitPlayerTank(AbstractTank tank1) {
         int count = tank1.getStarsCount();
         if (count > 0) {
-            count--;
-            tank1.setStarsCount(count);
-            gameFieldPanel.drawExpolde(tank1.getX(), tank1.getY(), Constants.BIG_EXPLOSION_CODE, Constants.tankSize);
-            gameFieldPanel.repaint(tank1.getX(), tank1.getY(), Constants.BIG_EXPLOSION_CODE, Constants.tankSize);
-            switch (tank1.getStarsCount()) {
-                case 0:
-                    tank1.setDoubleShot(false);
-                    if (tank1.getDirection() == Constants.UP) {
-                        tank1.setTankPicture(AbstractTank.EN_TANK_UP);
-                    } else if (tank1.getDirection() == Constants.DOWN) {
-                        tank1.setTankPicture(AbstractTank.EN_TANK_DOWN);
-                    } else if (tank1.getDirection() == Constants.LEFT) {
-                        tank1.setTankPicture(AbstractTank.EN_TANK_LEFT);
-                    } else if (tank1.getDirection() == Constants.RIGHT) {
-                        tank1.setTankPicture(AbstractTank.EN_TANK_RIGHT);
-                    }
-                    break;
-                case 1:
-                    tank1.setDoubleShot(false);
-                    if (tank1.getDirection() == Constants.UP) {
-                        tank1.setTankPicture(AbstractTank.EN_2SHELL_UP);
-                    } else if (tank1.getDirection() == Constants.DOWN) {
-                        tank1.setTankPicture(AbstractTank.EN_2SHELL_DOWN);
-                    } else if (tank1.getDirection() == Constants.LEFT) {
-                        tank1.setTankPicture(AbstractTank.EN_2SHELL_LEFT);
-                    } else if (tank1.getDirection() == Constants.RIGHT) {
-                        tank1.setTankPicture(AbstractTank.EN_2SHELL_RIGHT);
-                    }
-                    break;
-                case 2:
-                    tank1.setDoubleShot(true);
-                    if (tank1.getDirection() == Constants.UP) {
-                        tank1.setTankPicture(AbstractTank.EN_QUADRO_UP);
-                    } else if (tank1.getDirection() == Constants.DOWN) {
-                        tank1.setTankPicture(AbstractTank.EN_QUADRO_DOWN);
-                    } else if (tank1.getDirection() == Constants.LEFT) {
-                        tank1.setTankPicture(AbstractTank.EN_QUADRO_LEFT);
-                    } else if (tank1.getDirection() == Constants.RIGHT) {
-                        tank1.setTankPicture(AbstractTank.EN_QUADRO_RIGHT);
-                    }
-                    break;
-                default:
-                    break;
-            }
+            hitTankWithAFewStars(tank1, count);
         } else {
-            tank1.stopAllTimers();
-            gameFieldPanel.battleField.increasePlayerOneKilledCount();
-            gameFieldPanel.battleField.increaseTotalKilledCountForPlayerOne();
-            gameFieldPanel.increaseTotalEnemyTanksKilled();
-            gameFieldPanel.addBonusIfNeeded();
-            if (tank1.getLife() > 1) {
-                gameFieldPanel.increaseMaxTanksCount();
-            } else {
-                gameFieldPanel.battleField.increaseTanksKilled();
-                if (gameFieldPanel.battleField.isAllTanksKilled()) {
-                    if (tank1.getShell() != null) {
-                        tank1.getShell().stopTimer();
-                        gameFieldPanel.remove(tank1.getShell());
-                        gameFieldPanel.repaint(tank1.getShell().getBounds());
-                    }
-                    if (tank1.getShell2() != null) {
-                        tank1.getShell2().stopTimer();
-                        gameFieldPanel.remove(tank1.getShell2());
-                        gameFieldPanel.repaint(tank1.getShell2().getBounds());
-                    }
-                    GameConfig.getInstance().increaseCurrentLevelNum();
-                    if (gameFieldPanel.mapAvaliable(GameConfig.getInstance().getCurrentLevel())) {
-                        AbstractTank playerTank = gameFieldPanel.getPlayerOneTank();
-                        gameFieldPanel.battleField.setLevelValue(
-                                String.valueOf(
-                                        GameConfig.getInstance().getCurrentLevel()));
-                        gameFieldPanel.stopEnemyRespawner();
-                        new MapLoader(gameFieldPanel, GameConfig.getInstance().getCurrentMapFile()).start();
-                    } else {
-                        gameFieldPanel.stopGame(Constants.youWinMessageCode);
-                    }
+            hitTankWithNoStars(tank1);
+        }
+    }
+
+    private void hitTankWithAFewStars(AbstractTank tank1, int count) {
+        count--;
+        tank1.setStarsCount(count);
+        gameFieldPanel.drawExpolde(tank1.getX(), tank1.getY(), BIG_EXPLOSION_CODE, TANK_SIZE);
+        gameFieldPanel.repaint(tank1.getX(), tank1.getY(), BIG_EXPLOSION_CODE, TANK_SIZE);
+        switch (tank1.getStarsCount()) {
+            case 0:
+                tank1.setDoubleShot(false);
+                if (tank1.getDirection() == Constants.UP) {
+                    tank1.setTankPicture(AbstractTank.EN_TANK_UP);
+                } else if (tank1.getDirection() == Constants.DOWN) {
+                    tank1.setTankPicture(AbstractTank.EN_TANK_DOWN);
+                } else if (tank1.getDirection() == Constants.LEFT) {
+                    tank1.setTankPicture(AbstractTank.EN_TANK_LEFT);
+                } else if (tank1.getDirection() == Constants.RIGHT) {
+                    tank1.setTankPicture(AbstractTank.EN_TANK_RIGHT);
+                }
+                break;
+            case 1:
+                tank1.setDoubleShot(false);
+                if (tank1.getDirection() == Constants.UP) {
+                    tank1.setTankPicture(AbstractTank.EN_2SHELL_UP);
+                } else if (tank1.getDirection() == Constants.DOWN) {
+                    tank1.setTankPicture(AbstractTank.EN_2SHELL_DOWN);
+                } else if (tank1.getDirection() == Constants.LEFT) {
+                    tank1.setTankPicture(AbstractTank.EN_2SHELL_LEFT);
+                } else if (tank1.getDirection() == Constants.RIGHT) {
+                    tank1.setTankPicture(AbstractTank.EN_2SHELL_RIGHT);
+                }
+                break;
+            case 2:
+                tank1.setDoubleShot(true);
+                if (tank1.getDirection() == Constants.UP) {
+                    tank1.setTankPicture(AbstractTank.EN_QUADRO_UP);
+                } else if (tank1.getDirection() == Constants.DOWN) {
+                    tank1.setTankPicture(AbstractTank.EN_QUADRO_DOWN);
+                } else if (tank1.getDirection() == Constants.LEFT) {
+                    tank1.setTankPicture(AbstractTank.EN_QUADRO_LEFT);
+                } else if (tank1.getDirection() == Constants.RIGHT) {
+                    tank1.setTankPicture(AbstractTank.EN_QUADRO_RIGHT);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void hitTankWithNoStars(AbstractTank tank1) {
+        tank1.stopAllTimers();
+        gameFieldPanel.battleField.increasePlayerOneKilledCount();
+        gameFieldPanel.battleField.increaseTotalKilledCountForPlayerOne();
+        gameFieldPanel.increaseTotalEnemyTanksKilled();
+        gameFieldPanel.addBonusIfNeeded();
+        if (tank1.getLife() > 1) {
+            gameFieldPanel.increaseMaxTanksCount();
+        } else {
+            gameFieldPanel.battleField.increaseTanksKilled();
+            if (gameFieldPanel.battleField.isAllTanksKilled()) {
+                if (tank1.getShell() != null) {
+                    tank1.getShell().stopTimer();
+                    gameFieldPanel.remove(tank1.getShell());
+                    gameFieldPanel.repaint(tank1.getShell().getBounds());
+                }
+                if (tank1.getShell2() != null) {
+                    tank1.getShell2().stopTimer();
+                    gameFieldPanel.remove(tank1.getShell2());
+                    gameFieldPanel.repaint(tank1.getShell2().getBounds());
+                }
+                GameConfig.getInstance().increaseCurrentLevelNum();
+                if (gameFieldPanel.mapAvaliable(GameConfig.getInstance().getCurrentLevel())) {
+                    AbstractTank playerTank = gameFieldPanel.getPlayerOneTank();
+                    gameFieldPanel.battleField.setLevelValue(
+                            String.valueOf(
+                                    GameConfig.getInstance().getCurrentLevel()));
+                    gameFieldPanel.stopEnemyRespawner();
+                    new MapLoader(gameFieldPanel, GameConfig.getInstance().getCurrentMapFile()).start();
+                } else {
+                    gameFieldPanel.stopGame(YOU_WIN_MESSAGE_CODE);
                 }
             }
-            tank1.setAlive(false);
-            gameFieldPanel.remove(tank1);
-            gameFieldPanel.drawExpolde(tank1.getX(), tank1.getY(), Constants.BIG_EXPLOSION_CODE, Constants.tankSize);
-            gameFieldPanel.repaint(tank1.getX(), tank1.getY(), Constants.tankSize, Constants.tankSize);
-            tank1 = null;
         }
+        tank1.setAlive(false);
+        gameFieldPanel.remove(tank1);
+        gameFieldPanel.drawExpolde(tank1.getX(), tank1.getY(), BIG_EXPLOSION_CODE, TANK_SIZE);
+        gameFieldPanel.repaint(tank1.getX(), tank1.getY(), TANK_SIZE, TANK_SIZE);
+//            tank1 = null;
     }
 
     private void shellHitHQ(MapObject obj) {
@@ -305,15 +308,9 @@ public class ShellMovementHandler implements ActionListener {
             headQuarter.decreaseLevel();
         } else {
             gameFieldPanel.remove(headQuarter);
-            gameFieldPanel.drawExpolde(headQuarter.getX(),
-                    headQuarter.getY(),
-                    Constants.BIG_EXPLOSION_CODE,
-                    Constants.hqSize);
-            gameFieldPanel.repaint(headQuarter.getX(),
-                    headQuarter.getY(),
-                    Constants.BIG_EXPLOSION_CODE,
-                    Constants.hqSize);
-            gameFieldPanel.stopGame(Constants.gameOverMessageCode);
+            gameFieldPanel.drawExpolde(headQuarter.getX(), headQuarter.getY(), BIG_EXPLOSION_CODE, HQ_SIZE);
+            gameFieldPanel.repaint(headQuarter.getX(), headQuarter.getY(), BIG_EXPLOSION_CODE, HQ_SIZE);
+            gameFieldPanel.stopGame(GAME_OVER_MESSAGE_CODE);
         }
     }
 
@@ -327,28 +324,17 @@ public class ShellMovementHandler implements ActionListener {
                 || directionCode == Constants.RIGHT) {
             gameFieldPanel.removeVerticalLineOfBlocks(obj.getX(), obj.getY(), shell.getPositionCode());
         }
-        gameFieldPanel.drawExpolde(shell.getX(),
-                shell.getY(),
-                Constants.SMALL_EXPLOSION_CODE,
-                Constants.explosionSize);
-        gameFieldPanel.repaint(shell.getX(),
-                shell.getY(),
-                Constants.explosionSize,
-                Constants.explosionSize);
+        gameFieldPanel.drawExpolde(shell.getX(), shell.getY(), SMALL_EXPLOSION_CODE, EXPLOSION_SIZE);
+        gameFieldPanel.repaint(shell.getX(), shell.getY(), EXPLOSION_SIZE, EXPLOSION_SIZE);
     }
 
+    //TODO почему метод возвращает boolean?
     private boolean shellHitConcrete(Rectangle shellRect, MapObject obj) {
         boolean hit;
         Rectangle intersection = shellRect.intersection(obj.getBounds());
         hit = true;
-        gameFieldPanel.drawExpolde(shell.getX(),
-                shell.getY(),
-                Constants.SMALL_EXPLOSION_CODE,
-                Constants.explosionSize);
-        gameFieldPanel.repaint(shell.getX(),
-                shell.getY(),
-                Constants.explosionSize,
-                Constants.explosionSize);
+        gameFieldPanel.drawExpolde(shell.getX(), shell.getY(), SMALL_EXPLOSION_CODE, EXPLOSION_SIZE);
+        gameFieldPanel.repaint(shell.getX(), shell.getY(), EXPLOSION_SIZE, EXPLOSION_SIZE);
         if (shell.isPiercing()) {
             gameFieldPanel.remove(obj);
             gameFieldPanel.repaint(obj.getBounds());
@@ -371,16 +357,15 @@ public class ShellMovementHandler implements ActionListener {
                     && !(component instanceof AbstractTank)
                     && !(component instanceof GameMessage)) {
                 MapObject mapObject = (MapObject) component;
-                if (mapObject.getImageNum() == Constants.BRICK_CODE) {
+                if (mapObject.getImageNum() == BRICK_CODE) {
                     gameFieldPanel.remove(mapObject);
+                    //TODO возможно ли заменить на что-то вроде axis?
                     if (shell.getDirection() == Constants.UP
                             || shell.getDirection() == Constants.DOWN) {
-                        gameFieldPanel.removeHorizontalLineOfBlocks(mapObject.getX(),
-                                mapObject.getY(), Shell.CENTER);
+                        gameFieldPanel.removeHorizontalLineOfBlocks(mapObject.getX(), mapObject.getY(), CENTER);
                     } else if (shell.getDirection() == Constants.LEFT
                             || shell.getDirection() == Constants.RIGHT) {
-                        gameFieldPanel.removeVerticalLineOfBlocks(mapObject.getX(),
-                                mapObject.getY(), Shell.CENTER);
+                        gameFieldPanel.removeVerticalLineOfBlocks(mapObject.getX(), mapObject.getY(), CENTER);
                     }
                     hit = true;
                 }

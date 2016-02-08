@@ -34,9 +34,9 @@ public class Bonus extends JPanel {
     
     private void createBonusPosition() {
         Random posGenerator = new Random(System.currentTimeMillis());  
-        x = posGenerator.nextInt(Constants.gameFieldWidth - Constants.bonusSize);
-        y = posGenerator.nextInt(Constants.gameFieldHeight - Constants.bonusSize);
-        setBounds(x, y, Constants.bonusSize, Constants.bonusSize);
+        x = posGenerator.nextInt(Constants.GAME_FIELD_WIDTH - Constants.BONUS_SIZE);
+        y = posGenerator.nextInt(Constants.GAME_FIELD_HEIGHT - Constants.BONUS_SIZE);
+        setBounds(x, y, Constants.BONUS_SIZE, Constants.BONUS_SIZE);
     }
 
     private void createBonusType() {

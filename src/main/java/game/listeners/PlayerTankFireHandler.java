@@ -1,6 +1,6 @@
 package game.listeners;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.logic.GameConfig;
 import game.objects.MapObject;
@@ -43,10 +43,10 @@ public class PlayerTankFireHandler extends KeyAdapter {
 							MapObject mapObject = (MapObject) component;
 							if (mapObject.getImageNum() == 1
 									&& mapObject.getX() == tank.getX()
-											+ Constants.tankSize / 2
-											- Constants.brickSize / 2
+											+ Constants.TANK_SIZE / 2
+											- Constants.BRICK_SIZE / 2
 									&& mapObject.getY() == tank.getY()
-											- Constants.brickSize) {
+											- Constants.BRICK_SIZE) {
 								gameFieldPanel.remove(mapObject);
 								gameFieldPanel
 										.removeHorizontalLineOfBlocks(
@@ -55,17 +55,17 @@ public class PlayerTankFireHandler extends KeyAdapter {
 												Shell.CENTER);
 								gameFieldPanel.repaint(mapObject.getX());
 								gameFieldPanel.drawExpolde(tank.getX()
-										+ Constants.tankSize / 2
-										- Constants.explosionSize / 2,
-										tank.getY() - Constants.brickSize,
+										+ Constants.TANK_SIZE / 2
+										- Constants.EXPLOSION_SIZE / 2,
+										tank.getY() - Constants.BRICK_SIZE,
 										Constants.SMALL_EXPLOSION_CODE,
-										Constants.explosionSize);
+										Constants.EXPLOSION_SIZE);
 								gameFieldPanel.repaint(tank.getX()
-										+ Constants.tankSize / 2
-										- Constants.explosionSize / 2,
-										tank.getY() - Constants.brickSize,
-										Constants.explosionSize,
-										Constants.explosionSize);
+										+ Constants.TANK_SIZE / 2
+										- Constants.EXPLOSION_SIZE / 2,
+										tank.getY() - Constants.BRICK_SIZE,
+										Constants.EXPLOSION_SIZE,
+										Constants.EXPLOSION_SIZE);
 								closeShot = true;
 								break;
 							}
@@ -74,11 +74,11 @@ public class PlayerTankFireHandler extends KeyAdapter {
 							if (!tank.isPlayerControlled()) {									
 								if (!tank.isDoubleShot()) {
 									shell1Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize / 2
-											- Constants.shellSize / 2,
-											tank.getY() - Constants.shellSize,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE / 2
+											- Constants.SHELL_SIZE / 2,
+											tank.getY() - Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									if (shell1Bounds.intersects(tank
 											.getBounds())) {
 										/*gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
@@ -88,18 +88,18 @@ public class PlayerTankFireHandler extends KeyAdapter {
 									}
 								} else {
 									shell1Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize / 2
-											- Constants.shellSize / 2
-											- Constants.shellSize, tank.getY()
-											- Constants.shellSize,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE / 2
+											- Constants.SHELL_SIZE / 2
+											- Constants.SHELL_SIZE, tank.getY()
+											- Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									shell2Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize / 2
-											+ Constants.shellSize / 2,
-											tank.getY() - Constants.shellSize,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE / 2
+											+ Constants.SHELL_SIZE / 2,
+											tank.getY() - Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									if (shell1Bounds.intersects(tank
 											.getBounds())
 											|| shell2Bounds.intersects(tank
@@ -119,25 +119,25 @@ public class PlayerTankFireHandler extends KeyAdapter {
 					if (!closeShot) {
 						if (!tank.isDoubleShot()) {
 							shell1Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize / 2
-									- Constants.shellSize / 2, tank.getY()
-									- Constants.shellSize,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE / 2
+									- Constants.SHELL_SIZE / 2, tank.getY()
+									- Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 						} else {
 							shell1Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize / 2
-									- Constants.shellSize / 2
-									- Constants.shellSize, tank.getY()
-									- Constants.shellSize,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE / 2
+									- Constants.SHELL_SIZE / 2
+									- Constants.SHELL_SIZE, tank.getY()
+									- Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 							shell2Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize / 2
-									+ Constants.shellSize / 2, tank.getY()
-									- Constants.shellSize,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE / 2
+									+ Constants.SHELL_SIZE / 2, tank.getY()
+									- Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 						}
 					}
 				} else if (tank.getDirection() == Constants.DOWN) {
@@ -146,10 +146,10 @@ public class PlayerTankFireHandler extends KeyAdapter {
 							MapObject mapObject = (MapObject) component;
 							if (mapObject.getImageNum() == 1
 									&& mapObject.getX() == tank.getX()
-											+ Constants.tankSize / 2
-											- Constants.brickSize / 2
+											+ Constants.TANK_SIZE / 2
+											- Constants.BRICK_SIZE / 2
 									&& mapObject.getY() == tank.getY()
-											+ Constants.tankSize) {
+											+ Constants.TANK_SIZE) {
 								gameFieldPanel.remove(mapObject);
 								gameFieldPanel
 										.removeHorizontalLineOfBlocks(
@@ -158,17 +158,17 @@ public class PlayerTankFireHandler extends KeyAdapter {
 												Shell.CENTER);
 								gameFieldPanel.repaint(mapObject.getX());
 								gameFieldPanel.drawExpolde(tank.getX()
-										+ Constants.tankSize / 2
-										- Constants.explosionSize / 2,
-										tank.getY() + Constants.tankSize,
+										+ Constants.TANK_SIZE / 2
+										- Constants.EXPLOSION_SIZE / 2,
+										tank.getY() + Constants.TANK_SIZE,
 										Constants.SMALL_EXPLOSION_CODE,
-										Constants.explosionSize);
+										Constants.EXPLOSION_SIZE);
 								gameFieldPanel.repaint(tank.getX()
-										+ Constants.tankSize / 2
-										- Constants.explosionSize / 2,
-										tank.getY() + Constants.tankSize,
-										Constants.explosionSize,
-										Constants.explosionSize);
+										+ Constants.TANK_SIZE / 2
+										- Constants.EXPLOSION_SIZE / 2,
+										tank.getY() + Constants.TANK_SIZE,
+										Constants.EXPLOSION_SIZE,
+										Constants.EXPLOSION_SIZE);
 								closeShot = true;
 								break;
 							}
@@ -177,11 +177,11 @@ public class PlayerTankFireHandler extends KeyAdapter {
 							if (!tank.isPlayerControlled()) {
 								if (!tank.isDoubleShot()) {
 									shell1Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize / 2
-											- Constants.shellSize / 2,
-											tank.getY() + Constants.tankSize,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE / 2
+											- Constants.SHELL_SIZE / 2,
+											tank.getY() + Constants.TANK_SIZE,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									if (shell1Bounds.intersects(tank
 											.getBounds())) {
 										/*gameFieldPanel.battleField
@@ -194,18 +194,18 @@ public class PlayerTankFireHandler extends KeyAdapter {
 									}
 								} else {
 									shell1Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize / 2
-											- Constants.shellSize / 2
-											- Constants.shellSize, tank.getY()
-											+ Constants.tankSize,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE / 2
+											- Constants.SHELL_SIZE / 2
+											- Constants.SHELL_SIZE, tank.getY()
+											+ Constants.TANK_SIZE,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									shell2Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize / 2
-											+ Constants.shellSize / 2,
-											tank.getY() + Constants.tankSize,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE / 2
+											+ Constants.SHELL_SIZE / 2,
+											tank.getY() + Constants.TANK_SIZE,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									if (shell1Bounds.intersects(tank
 											.getBounds())
 											|| shell2Bounds.intersects(tank
@@ -225,25 +225,25 @@ public class PlayerTankFireHandler extends KeyAdapter {
 					if (!closeShot) {
 						if (!tank.isDoubleShot()) {
 							shell1Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize / 2
-									- Constants.shellSize / 2, tank.getY()
-									+ Constants.tankSize,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE / 2
+									- Constants.SHELL_SIZE / 2, tank.getY()
+									+ Constants.TANK_SIZE,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 						} else {
 							shell1Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize / 2
-									- Constants.shellSize / 2
-									- Constants.shellSize, tank.getY()
-									+ Constants.tankSize,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE / 2
+									- Constants.SHELL_SIZE / 2
+									- Constants.SHELL_SIZE, tank.getY()
+									+ Constants.TANK_SIZE,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 							shell2Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize / 2
-									+ Constants.shellSize / 2, tank.getY()
-									+ Constants.tankSize,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE / 2
+									+ Constants.SHELL_SIZE / 2, tank.getY()
+									+ Constants.TANK_SIZE,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 						}
 					}
 				} else if (tank.getDirection() == Constants.LEFT) {
@@ -252,10 +252,10 @@ public class PlayerTankFireHandler extends KeyAdapter {
 							MapObject mapObject = (MapObject) component;
 							if (mapObject.getImageNum() == 1
 									&& mapObject.getX() == tank.getX()
-											- Constants.brickSize
+											- Constants.BRICK_SIZE
 									&& mapObject.getY() == tank.getY()
-											+ Constants.tankSize / 2
-											- Constants.brickSize / 2) {
+											+ Constants.TANK_SIZE / 2
+											- Constants.BRICK_SIZE / 2) {
 								gameFieldPanel.remove(mapObject);
 								// !! С‚СѓС‚ С‚РѕС‡РЅРѕ С†РµРЅС‚СЂ?
 								gameFieldPanel.removeVerticalLineOfBlocks(
@@ -264,17 +264,17 @@ public class PlayerTankFireHandler extends KeyAdapter {
 								gameFieldPanel.repaint(mapObject
 										.getBounds());
 								gameFieldPanel.drawExpolde(tank.getX()
-										- Constants.brickSize, tank.getY()
-										+ Constants.tankSize / 2
-										- Constants.explosionSize / 2,
+										- Constants.BRICK_SIZE, tank.getY()
+										+ Constants.TANK_SIZE / 2
+										- Constants.EXPLOSION_SIZE / 2,
 										Constants.SMALL_EXPLOSION_CODE,
-										Constants.explosionSize);
+										Constants.EXPLOSION_SIZE);
 								gameFieldPanel.repaint(tank.getX()
-										- Constants.brickSize, tank.getY()
-										+ Constants.tankSize / 2
-										- Constants.explosionSize / 2,
-										Constants.explosionSize,
-										Constants.explosionSize);
+										- Constants.BRICK_SIZE, tank.getY()
+										+ Constants.TANK_SIZE / 2
+										- Constants.EXPLOSION_SIZE / 2,
+										Constants.EXPLOSION_SIZE,
+										Constants.EXPLOSION_SIZE);
 								closeShot = true;
 								break;
 							}
@@ -283,11 +283,11 @@ public class PlayerTankFireHandler extends KeyAdapter {
 							if (!tank.isPlayerControlled()) {
 								if (!tank.isDoubleShot()) {
 									shell1Bounds = new Rectangle(tank.getX()
-											- Constants.shellSize, tank.getY()
-											+ Constants.tankSize / 2
-											- Constants.shellSize / 2,
-											Constants.shellSize,
-											Constants.shellSize);
+											- Constants.SHELL_SIZE, tank.getY()
+											+ Constants.TANK_SIZE / 2
+											- Constants.SHELL_SIZE / 2,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									if (shell1Bounds.intersects(tank
 											.getBounds())) {
 										/*gameFieldPanel.battleField
@@ -300,18 +300,18 @@ public class PlayerTankFireHandler extends KeyAdapter {
 									}
 								} else {
 									shell1Bounds = new Rectangle(tank.getX()
-											- Constants.shellSize, tank.getY()
-											+ Constants.tankSize / 2
-											- Constants.shellSize / 2
-											- Constants.shellSize,
-											Constants.shellSize,
-											Constants.shellSize);
+											- Constants.SHELL_SIZE, tank.getY()
+											+ Constants.TANK_SIZE / 2
+											- Constants.SHELL_SIZE / 2
+											- Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									shell2Bounds = new Rectangle(tank.getX()
-											- Constants.shellSize, tank.getY()
-											+ Constants.tankSize / 2
-											+ Constants.shellSize / 2,
-											Constants.shellSize,
-											Constants.shellSize);
+											- Constants.SHELL_SIZE, tank.getY()
+											+ Constants.TANK_SIZE / 2
+											+ Constants.SHELL_SIZE / 2,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									if (shell1Bounds.intersects(tank
 											.getBounds())
 											|| shell2Bounds.intersects(tank
@@ -327,25 +327,25 @@ public class PlayerTankFireHandler extends KeyAdapter {
 					if (!closeShot) {
 						if (!tank.isDoubleShot()) {
 							shell1Bounds = new Rectangle(tank.getX()
-									- Constants.shellSize, tank.getY()
-									+ Constants.tankSize / 2
-									- Constants.shellSize / 2,
-									Constants.shellSize,
-									Constants.shellSize);
+									- Constants.SHELL_SIZE, tank.getY()
+									+ Constants.TANK_SIZE / 2
+									- Constants.SHELL_SIZE / 2,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 						} else {
 							shell1Bounds = new Rectangle(tank.getX()
-									- Constants.shellSize, tank.getY()
-									+ Constants.tankSize / 2
-									- Constants.shellSize / 2
-									- Constants.shellSize,
-									Constants.shellSize,
-									Constants.shellSize);
+									- Constants.SHELL_SIZE, tank.getY()
+									+ Constants.TANK_SIZE / 2
+									- Constants.SHELL_SIZE / 2
+									- Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 							shell2Bounds = new Rectangle(tank.getX()
-									- Constants.shellSize, tank.getY()
-									+ Constants.tankSize / 2
-									+ Constants.shellSize / 2,
-									Constants.shellSize,
-									Constants.shellSize);
+									- Constants.SHELL_SIZE, tank.getY()
+									+ Constants.TANK_SIZE / 2
+									+ Constants.SHELL_SIZE / 2,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 						}
 					}
 				} else if (tank.getDirection() == Constants.RIGHT) {
@@ -354,10 +354,10 @@ public class PlayerTankFireHandler extends KeyAdapter {
 							MapObject mapObject = (MapObject) component;
 							if (mapObject.getImageNum() == 1
 									&& mapObject.getX() == tank.getX()
-											+ Constants.tankSize
+											+ Constants.TANK_SIZE
 									&& mapObject.getY() == tank.getY()
-											+ Constants.tankSize / 2
-											- Constants.brickSize / 2) {
+											+ Constants.TANK_SIZE / 2
+											- Constants.BRICK_SIZE / 2) {
 								gameFieldPanel.remove(mapObject);
 								gameFieldPanel.removeVerticalLineOfBlocks(
 										mapObject.getX(), mapObject.getY(),
@@ -365,31 +365,31 @@ public class PlayerTankFireHandler extends KeyAdapter {
 								gameFieldPanel.repaint(mapObject
 										.getBounds());
 								gameFieldPanel.drawExpolde(tank.getX()
-										+ Constants.tankSize, tank.getY()
-										+ Constants.tankSize / 2
-										- Constants.explosionSize / 2,
+										+ Constants.TANK_SIZE, tank.getY()
+										+ Constants.TANK_SIZE / 2
+										- Constants.EXPLOSION_SIZE / 2,
 										Constants.SMALL_EXPLOSION_CODE,
-										Constants.explosionSize);
+										Constants.EXPLOSION_SIZE);
 								gameFieldPanel.repaint(tank.getX()
-										+ Constants.tankSize, tank.getY()
-										+ Constants.tankSize / 2
-										- Constants.explosionSize / 2,
-										Constants.explosionSize,
-										Constants.explosionSize);
+										+ Constants.TANK_SIZE, tank.getY()
+										+ Constants.TANK_SIZE / 2
+										- Constants.EXPLOSION_SIZE / 2,
+										Constants.EXPLOSION_SIZE,
+										Constants.EXPLOSION_SIZE);
 								closeShot = true;
 								break;
-							} // Проверяем столкновение пули с танком при
-								// выстреле в упор.
+							} // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+								// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ.
 						} else if (component instanceof AbstractTank) {
 							AbstractTank tank = (AbstractTank) component;
 							if (!tank.isPlayerControlled()) {
 								if (!tank.isDoubleShot()) {
 									shell1Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize, tank.getY()
-											+ Constants.tankSize / 2
-											- Constants.shellSize / 2,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE, tank.getY()
+											+ Constants.TANK_SIZE / 2
+											- Constants.SHELL_SIZE / 2,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									if (shell1Bounds.intersects(tank.getBounds())) {
 										
 										gameFieldPanel
@@ -398,16 +398,16 @@ public class PlayerTankFireHandler extends KeyAdapter {
 									}
 								} else {
 									shell1Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize, tank.getY()
-											+ Constants.shellSize,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE, tank.getY()
+											+ Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									shell2Bounds = new Rectangle(tank.getX()
-											+ Constants.tankSize, tank.getY()
-											+ Constants.tankSize
-											- Constants.shellSize * 2,
-											Constants.shellSize,
-											Constants.shellSize);
+											+ Constants.TANK_SIZE, tank.getY()
+											+ Constants.TANK_SIZE
+											- Constants.SHELL_SIZE * 2,
+											Constants.SHELL_SIZE,
+											Constants.SHELL_SIZE);
 									if (shell1Bounds.intersects(tank.getBounds()) 
 											|| shell2Bounds.intersects(tank.getBounds())) {										
 										gameFieldPanel.destroyEnemyTank(tank);
@@ -420,23 +420,23 @@ public class PlayerTankFireHandler extends KeyAdapter {
 					if (!closeShot) {
 						if (!tank.isDoubleShot()) {
 							shell1Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize, tank.getY()
-									+ Constants.tankSize / 2
-									- Constants.shellSize / 2,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE, tank.getY()
+									+ Constants.TANK_SIZE / 2
+									- Constants.SHELL_SIZE / 2,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 						} else {
 							shell1Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize, tank.getY()
-									+ Constants.shellSize,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE, tank.getY()
+									+ Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 							shell2Bounds = new Rectangle(tank.getX()
-									+ Constants.tankSize, tank.getY()
-									+ Constants.tankSize
-									- Constants.shellSize * 2,
-									Constants.shellSize,
-									Constants.shellSize);
+									+ Constants.TANK_SIZE, tank.getY()
+									+ Constants.TANK_SIZE
+									- Constants.SHELL_SIZE * 2,
+									Constants.SHELL_SIZE,
+									Constants.SHELL_SIZE);
 						}
 					}
 				}

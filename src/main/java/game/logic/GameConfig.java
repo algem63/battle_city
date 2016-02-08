@@ -15,36 +15,130 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * Cодержит настройки игры
+ */
 public class GameConfig {
+
+    /**
+     * Единственный инстанс класса
+     */
     private static GameConfig instance = null;
 
+    /**
+     * Настройки, считываемые из файла
+     */
     private Properties gameConfig;
-    private File configFile;
-    private InputStream propertyReader;
-    private FileOutputStream configWriter;
-    private Toolkit kit;
 
+    /**
+     * Файл с настройками
+     */
+    private File configFile;
+
+    /**
+     * Используется для чтения настроек из файла
+     */
+    private InputStream propertyReader;
+
+    /**
+     * Используется для записи настроек в файл
+     */
+    private FileOutputStream configWriter;
+
+    /**
+     * Лог игры
+     */
     private File logFile;
+
+    /**
+     * Используется для записи данных в лог
+     */
     private FileWriter logWriter;
 
-    private BufferedImage headquartersImageL1, headquartersImageL2, headquartersImageL3, headquartersImageL4, headquartersImageL5, headquartersImageL6, headquartersImageL7;
+    /**
+     * Изображения объекта HQ, соответствующие разным уровням его развития
+     */
+    private BufferedImage headquartersImageL1, headquartersImageL2, headquartersImageL3, headquartersImageL4,
+            headquartersImageL5, headquartersImageL6, headquartersImageL7;
+
+    /**
+     * Изображение кирпича
+     */
     private BufferedImage brickImage;
+
+    /**
+     * Изображение бетонного блока
+     */
     private BufferedImage concreteImage;
+
+    /**
+     * Изображение блока с водой
+     */
     private BufferedImage waterImage;
+
+    /**
+     * Картинка с танком на стартовом экране игры
+     */
     private BufferedImage tankImage;
+    //TODO Возможно, графику нужно убрать в отдельный класс
+    /**
+     * Изображение танка первого игрока
+     */
     private BufferedImage playerOneTankImage;
-    private BufferedImage playerTwoTankImage, pauseImage,
-            gameOverImage, youWinImage;
-    private BufferedImage starBonusImage,
-            lifeBonusImage, spadeBonusImage;
+
+    /**
+     * Изображение танка второго игрока
+     */
+    private BufferedImage playerTwoTankImage;
+
+    /**
+     * Надпись PAUSE
+     */
+    private BufferedImage pauseImage;
+
+    /**
+     * Надпись YOU WIN
+     */
+    private BufferedImage youWinImage;
+
+    /**
+     * Надпись GAME OVER
+     */
+    private BufferedImage gameOverImage;
+
+    /**
+     * Изображение бонуса 'Star'
+     */
+    private BufferedImage starBonusImage;
+
+    /**
+     * Изображение бонуса 'Life'
+     */
+    private BufferedImage lifeBonusImage;
+
+    /**
+     * Изображение бонуса 'Spade'
+     */
+    private BufferedImage spadeBonusImage;
+
+    /**
+     * Изображение взрыва снаряда
+     */
     private Image explosionImage;
+
+    /**
+     * Изображение взрыва танка
+     */
     private Image tankExplosionImage;
 
+    /**
+     * Текущий уровень игры
+     */
     int currentLevel;
 
     private GameConfig() {
         // загружаем настройки
-        configFile = new File(Constants.configFile);
+        configFile = new File(Constants.CONFIG_FILE);
         if (!configFile.exists()) {
             createDefaultConfig();
         } else {
@@ -65,19 +159,32 @@ public class GameConfig {
         }
         return instance;
     }
-    
+
+    /**
+     * Возвращает значение настройки игры
+     * @param key ключ, идентифицирующий настройку
+     * @return значение настройки
+     */
     public String getProperty(final String key) {
         return gameConfig.getProperty(key);
     }
 
+    /**
+     * Устанавливает значение настройки игры
+     * @param prop  ключ, идентифицирующий настройку
+     * @param value значение настройки
+     */
     public void setProperty(final String prop, final String value) {
         gameConfig.setProperty(prop, value);
     }
 
+    /**
+     * Создает файт с настройками по-умолчанию, если его не существует
+     */
     public void createDefaultConfig() {
         try {
             logFile = new File("error.log");
-            propertyReader = getClass().getResourceAsStream(Constants.defaultConfig);
+            propertyReader = getClass().getResourceAsStream(Constants.DEFAULT_CONFIG);
             gameConfig = new Properties();
             gameConfig.load(propertyReader);
             configFile.createNewFile();
@@ -96,13 +203,14 @@ public class GameConfig {
         }
     }
 
+    /**
+     * Загружает настройки игры из файла
+     */
     public void loadConfig() {
         try {
-            propertyReader = new FileInputStream(Constants.configFile);
+            propertyReader = new FileInputStream(Constants.CONFIG_FILE);
             gameConfig = new Properties();
             gameConfig.load(propertyReader);
-        } catch (FileNotFoundException e) {
-            GameConfig.getInstance().writeErrorMessageToLog(e);
         } catch (IOException e) {
             GameConfig.getInstance().writeErrorMessageToLog(e);
         } finally {
@@ -114,23 +222,33 @@ public class GameConfig {
         }
     }
 
+    /**
+     * Сохраняет настройки игры в файл
+     */
     public void saveConfig() {
         try {
-            configWriter = new FileOutputStream(Constants.configFile);
-            gameConfig.store(configWriter, null);
-        } catch (FileNotFoundException e) {
-            GameConfig.getInstance().writeErrorMessageToLog(e);
+            if (configWriter == null) {
+                configWriter = new FileOutputStream(Constants.CONFIG_FILE);
+            }
+            gameConfig.store(new FileOutputStream(Constants.CONFIG_FILE), null);
         } catch (IOException e) {
             GameConfig.getInstance().writeErrorMessageToLog(e);
         } finally {
-            try {
-                configWriter.close();
-            } catch (IOException e) {
-                GameConfig.getInstance().writeErrorMessageToLog(e);
+            if (configWriter != null) {
+                try {
+                    configWriter.close();
+                } catch (IOException e) {
+                    GameConfig.getInstance().writeErrorMessageToLog(e);
+                }
             }
         }
     }
 
+    /**
+     * Проверяет, назначена ли заданная клавиша на какую-либо функцию
+     * @param key код назначаемой клавиши
+     * @return
+     */
     public String checkTheFunctionKeyAssignedTo(final int key) {
         Set<String> keys = gameConfig.stringPropertyNames();
         String property = null;
@@ -155,20 +273,15 @@ public class GameConfig {
     }
 
     public boolean containsValue(final int value) {
-        if (gameConfig.containsValue(String.valueOf(value))) {
-            return true;
-        } else {
-            return false;
-        }
+        return gameConfig.containsValue(String.valueOf(value));
     }
 
     public void loadGraphics() {
-        kit = Toolkit.getDefaultToolkit();
+        Toolkit kit = Toolkit.getDefaultToolkit();
         try {
             brickImage = ImageIO.read(getClass().getResource("/images/brick.bmp"));
             concreteImage = ImageIO.read(getClass().getResource("/images/concrete.bmp"));
             waterImage = ImageIO.read(getClass().getResource("/images/water.bmp"));
-
             headquartersImageL1 = ImageIO.read(getClass().getResource("/images/HeadQL1.bmp"));
             headquartersImageL2 = ImageIO.read(getClass().getResource("/images/HeadQL2.bmp"));
             headquartersImageL3 = ImageIO.read(getClass().getResource("/images/HeadQL3.bmp"));
@@ -176,44 +289,20 @@ public class GameConfig {
             headquartersImageL5 = ImageIO.read(getClass().getResource("/images/HeadQL5.bmp"));
             headquartersImageL6 = ImageIO.read(getClass().getResource("/images/HeadQL6.bmp"));
             headquartersImageL7 = ImageIO.read(getClass().getResource("/images/HeadQL7.bmp"));
-
             tankImage = ImageIO.read(getClass().getResource("/images/TANK.jpg"));
             playerOneTankImage = ImageIO.read(getClass().getResource("/images/G2ShellT1.bmp"));
             playerTwoTankImage = ImageIO.read(getClass().getResource("/images/Y2ShellT1.bmp"));
             explosionImage = kit.getImage(getClass().getResource("/images/Explosion.gif"));
             tankExplosionImage = kit.getImage(getClass().getResource("/images/TankExplosion.gif"));
-//            explosionImage = ImageIO.read(getClass().getResource("/images/Explosion.gif"));
-//            tankExplosionImage = ImageIO.read(getClass().getResource("/images/TankExplosion.gif"));
-            pauseImage = ImageIO.read(getClass().getResource(Constants.pauseImage));
-            gameOverImage = ImageIO.read(getClass().getResource(Constants.gameOverImage));
-            lifeBonusImage = ImageIO.read(getClass().getResource(Constants.lifeBonusImage));
-            spadeBonusImage = ImageIO.read(getClass().getResource(Constants.spadeBonusImage));
-            starBonusImage = ImageIO.read(getClass().getResource(Constants.starBonusImage));
-            youWinImage = ImageIO.read(getClass().getResource(Constants.youWinImage));
+            pauseImage = ImageIO.read(getClass().getResource(Constants.PAUSE_IMAGE));
+            gameOverImage = ImageIO.read(getClass().getResource(Constants.GAME_OVER_IMAGE));
+            lifeBonusImage = ImageIO.read(getClass().getResource(Constants.LIFE_BONUS_IMAGE));
+            spadeBonusImage = ImageIO.read(getClass().getResource(Constants.SPADE_BONUS_IMAGE));
+            starBonusImage = ImageIO.read(getClass().getResource(Constants.STAR_BONUS_IMAGE));
+            youWinImage = ImageIO.read(getClass().getResource(Constants.YOU_WIN_IMAGE));
         } catch (IOException e) {
             GameConfig.getInstance().writeErrorMessageToLog(e);
         }
-
-//        makeColorTransparent(explosionImage, new Color(Constants.BLACK_BACKGROUND));
-
-        /*for (int y = 0; y < explosionImage.getHeight(); ++y) {
-            for (int x = 0; x < explosionImage.getWidth(); ++x) {
-                // делаем черный цвет прозрачным
-                int argb = explosionImage.getRGB(x, y);
-                if (argb == Constants.BLACK_BACKGROUND) {
-                    explosionImage.setRGB(x, y, 0);
-                }
-            }
-        }*/
-        /*for (int y = 0; y < tankExplosionImage.getHeight(); ++y) {
-            for (int x = 0; x < tankExplosionImage.getWidth(); ++x) {
-                // делаем черный цвет прозрачным
-                int argb = tankExplosionImage.getRGB(x, y);
-                if (argb == Constants.BLACK_BACKGROUND) {
-                    tankExplosionImage.setRGB(x, y, 0);
-                }
-            }
-        }*/
     }
 
 
@@ -291,6 +380,7 @@ public class GameConfig {
 
     public void writeErrorMessageToLog(Exception ex) {
         try {
+            //TODO это как вообще?
             if (logFile == null)
                 logFile.createNewFile();
             logWriter = new FileWriter(logFile);
@@ -335,6 +425,7 @@ public class GameConfig {
         File currentMapFile = null;
         File mapsDir = new File("maps");
         if (mapsDir.isDirectory()) {
+            //TODO проверить, как тут может быть NPE
             for (File file : mapsDir.listFiles()) {
                 if (file.isFile()) {
                     StringBuilder nameWithNoExtension = new StringBuilder();

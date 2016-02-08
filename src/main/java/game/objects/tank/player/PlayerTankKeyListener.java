@@ -6,7 +6,7 @@
 
 package game.objects.tank.player;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.logic.GameConfig;
 import game.objects.MapObject;
@@ -19,7 +19,7 @@ import java.awt.event.KeyListener;
 
 /**
  *
- * @author Павел
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 public class PlayerTankKeyListener implements KeyListener {
 
@@ -210,16 +210,16 @@ public class PlayerTankKeyListener implements KeyListener {
         for (Component component : components) {
             if (component instanceof MapObject) {
                 MapObject mapObject = (MapObject) component;
-                if (mapObject.getImageNum() == 1 && mapObject.getX() == tank.getX() + Constants.tankSize / 2 
-                        - Constants.brickSize / 2 && mapObject.getY() == tank.getY() - Constants.brickSize) {
+                if (mapObject.getImageNum() == 1 && mapObject.getX() == tank.getX() + Constants.TANK_SIZE / 2
+                        - Constants.BRICK_SIZE / 2 && mapObject.getY() == tank.getY() - Constants.BRICK_SIZE) {
                     gameFieldPanel.remove(mapObject);
                     gameFieldPanel.removeHorizontalLineOfBlocks(mapObject.getX(),mapObject.getY(), Shell.CENTER);
                     gameFieldPanel.repaint(mapObject.getX());
-                    gameFieldPanel.drawExpolde(tank.getX() + Constants.tankSize / 2 - Constants.explosionSize / 2,
-                                    tank.getY() - Constants.brickSize, Constants.SMALL_EXPLOSION_CODE,
-                                    Constants.explosionSize);
-                    gameFieldPanel.repaint(tank.getX() + Constants.tankSize / 2 - Constants.explosionSize / 2, 
-                            tank.getY() - Constants.brickSize, Constants.explosionSize, Constants.explosionSize);
+                    gameFieldPanel.drawExpolde(tank.getX() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                                    tank.getY() - Constants.BRICK_SIZE, Constants.SMALL_EXPLOSION_CODE,
+                                    Constants.EXPLOSION_SIZE);
+                    gameFieldPanel.repaint(tank.getX() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                            tank.getY() - Constants.BRICK_SIZE, Constants.EXPLOSION_SIZE, Constants.EXPLOSION_SIZE);
                     isCloseShot = true;
                     break;
                 }
@@ -228,8 +228,8 @@ public class PlayerTankKeyListener implements KeyListener {
                 if (!tank.isPlayerControlled()) {									
                     Rectangle shell1Bounds, shell2Bounds;
                     if (!this.tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2,
-                                        tank.getY() - Constants.shellSize, Constants.shellSize, Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2,
+                                        tank.getY() - Constants.SHELL_SIZE, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
                         if (shell1Bounds.intersects(tank.getBounds())) {
                             gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
                             gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
@@ -237,11 +237,11 @@ public class PlayerTankKeyListener implements KeyListener {
                             isCloseShot = true;
                         }
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2
-                                        - Constants.shellSize, tank.getY() - Constants.shellSize, Constants.shellSize,
-                                        Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 + Constants.shellSize / 2,
-                                        tank.getY() - Constants.shellSize, Constants.shellSize, Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2
+                                        - Constants.SHELL_SIZE, tank.getY() - Constants.SHELL_SIZE, Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 + Constants.SHELL_SIZE / 2,
+                                        tank.getY() - Constants.SHELL_SIZE, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
                         if (shell1Bounds.intersects(tank.getBounds()) || shell2Bounds.intersects(tank.getBounds())) {
                             gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
                             gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
@@ -261,16 +261,16 @@ public class PlayerTankKeyListener implements KeyListener {
             for (Component component : components) {
             if (component instanceof MapObject) {
                 MapObject mapObject = (MapObject) component;
-                if (mapObject.getImageNum() == 1 && mapObject.getX() == tank.getX() + Constants.tankSize / 2 
-                        - Constants.brickSize / 2 && mapObject.getY() == tank.getY() + Constants.tankSize) {
+                if (mapObject.getImageNum() == 1 && mapObject.getX() == tank.getX() + Constants.TANK_SIZE / 2
+                        - Constants.BRICK_SIZE / 2 && mapObject.getY() == tank.getY() + Constants.TANK_SIZE) {
                     gameFieldPanel.remove(mapObject);
                     gameFieldPanel.removeHorizontalLineOfBlocks(mapObject.getX(), mapObject.getY(),Shell.CENTER);
                     gameFieldPanel.repaint(mapObject.getX());
-                    gameFieldPanel.drawExpolde(tank.getX() + Constants.tankSize / 2 - Constants.explosionSize / 2,
-                                    tank.getY() + Constants.tankSize, Constants.SMALL_EXPLOSION_CODE, 
-                                    Constants.explosionSize);
-                    gameFieldPanel.repaint(tank.getX() + Constants.tankSize / 2 - Constants.explosionSize / 2, 
-                            tank.getY() + Constants.tankSize, Constants.explosionSize, Constants.explosionSize);
+                    gameFieldPanel.drawExpolde(tank.getX() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                                    tank.getY() + Constants.TANK_SIZE, Constants.SMALL_EXPLOSION_CODE,
+                                    Constants.EXPLOSION_SIZE);
+                    gameFieldPanel.repaint(tank.getX() + Constants.TANK_SIZE / 2 - Constants.EXPLOSION_SIZE / 2,
+                            tank.getY() + Constants.TANK_SIZE, Constants.EXPLOSION_SIZE, Constants.EXPLOSION_SIZE);
                     isCloseShot = true;
                     break;
                 }
@@ -279,8 +279,8 @@ public class PlayerTankKeyListener implements KeyListener {
                 if (!tank.isPlayerControlled()) {
                     Rectangle shell1Bounds, shell2Bounds;
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2,
-                                        tank.getY() + Constants.tankSize, Constants.shellSize, Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2,
+                                        tank.getY() + Constants.TANK_SIZE, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
                         if (shell1Bounds.intersects(tank.getBounds())) {
                             gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
                             gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
@@ -288,11 +288,11 @@ public class PlayerTankKeyListener implements KeyListener {
                             isCloseShot = true;
                         }
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2
-                                        - Constants.shellSize, tank.getY() + Constants.tankSize, Constants.shellSize,
-                                        Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 + Constants.shellSize / 2,
-                                        tank.getY() + Constants.tankSize, Constants.shellSize, Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2
+                                        - Constants.SHELL_SIZE, tank.getY() + Constants.TANK_SIZE, Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 + Constants.SHELL_SIZE / 2,
+                                        tank.getY() + Constants.TANK_SIZE, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
                         if (shell1Bounds.intersects(tank.getBounds()) || shell2Bounds.intersects(tank.getBounds())) {
                             gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
                             gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
@@ -313,15 +313,15 @@ public class PlayerTankKeyListener implements KeyListener {
         for (Component component : components) {
             if (component instanceof MapObject) {
                 MapObject mapObject = (MapObject) component;
-                if (mapObject.getImageNum() == 1 && mapObject.getX() == tank.getX() - Constants.brickSize 
-                        && mapObject.getY() == tank.getY() + Constants.tankSize / 2 - Constants.brickSize / 2) {
+                if (mapObject.getImageNum() == 1 && mapObject.getX() == tank.getX() - Constants.BRICK_SIZE
+                        && mapObject.getY() == tank.getY() + Constants.TANK_SIZE / 2 - Constants.BRICK_SIZE / 2) {
                     gameFieldPanel.remove(mapObject);                                
                     gameFieldPanel.removeVerticalLineOfBlocks(mapObject.getX(), mapObject.getY(), Shell.CENTER);
                     gameFieldPanel.repaint(mapObject.getBounds());
-                    gameFieldPanel.drawExpolde(tank.getX() - Constants.brickSize, tank.getY() + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2, Constants.SMALL_EXPLOSION_CODE, Constants.explosionSize);
-                    gameFieldPanel.repaint(tank.getX() - Constants.brickSize, tank.getY() + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2, Constants.explosionSize, Constants.explosionSize);
+                    gameFieldPanel.drawExpolde(tank.getX() - Constants.BRICK_SIZE, tank.getY() + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2, Constants.SMALL_EXPLOSION_CODE, Constants.EXPLOSION_SIZE);
+                    gameFieldPanel.repaint(tank.getX() - Constants.BRICK_SIZE, tank.getY() + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2, Constants.EXPLOSION_SIZE, Constants.EXPLOSION_SIZE);
                     isCloseShot = true;
                     break;
                 }
@@ -329,9 +329,9 @@ public class PlayerTankKeyListener implements KeyListener {
                 AbstractTank tank = (AbstractTank) component;
                 if (!tank.isPlayerControlled()) {
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() - Constants.shellSize, tank.getY() 
-                                + Constants.tankSize / 2 - Constants.shellSize / 2, Constants.shellSize, 
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE, tank.getY()
+                                + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2, Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                         if (shell1Bounds.intersects(tank.getBounds())) {
                             gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
                             gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
@@ -339,12 +339,12 @@ public class PlayerTankKeyListener implements KeyListener {
                             isCloseShot = true;
                         }
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() - Constants.shellSize, tank.getY() 
-                                + Constants.tankSize / 2 - Constants.shellSize / 2 - Constants.shellSize, 
-                                Constants.shellSize, Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() - Constants.shellSize, tank.getY() 
-                                + Constants.tankSize / 2 + Constants.shellSize / 2, Constants.shellSize, 
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE, tank.getY()
+                                + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2 - Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE, Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE, tank.getY()
+                                + Constants.TANK_SIZE / 2 + Constants.SHELL_SIZE / 2, Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                         if (shell1Bounds.intersects(tank.getBounds()) || shell2Bounds.intersects(tank.getBounds())) {
                             gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
                             gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
@@ -364,16 +364,16 @@ public class PlayerTankKeyListener implements KeyListener {
         for (Component component : components) {
             if (component instanceof MapObject) {
                 MapObject mapObject = (MapObject) component;
-                if (mapObject.getImageNum() == 1 && mapObject.getX() == tank.getX() + Constants.tankSize
-                                && mapObject.getY() == tank.getY() + Constants.tankSize/2 - Constants.brickSize/2) {
+                if (mapObject.getImageNum() == 1 && mapObject.getX() == tank.getX() + Constants.TANK_SIZE
+                                && mapObject.getY() == tank.getY() + Constants.TANK_SIZE /2 - Constants.BRICK_SIZE /2) {
                     gameFieldPanel.remove(mapObject);
                     gameFieldPanel.removeVerticalLineOfBlocks(mapObject.getX(), mapObject.getY(), Shell.CENTER);
                     gameFieldPanel.repaint(mapObject.getBounds());
-                    gameFieldPanel.drawExpolde(tank.getX() + Constants.tankSize, tank.getY() + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2, Constants.SMALL_EXPLOSION_CODE, 
-                                    Constants.explosionSize);
-                    gameFieldPanel.repaint(tank.getX() + Constants.tankSize, tank.getY() + Constants.tankSize / 2
-                                    - Constants.explosionSize / 2, Constants.explosionSize, Constants.explosionSize);
+                    gameFieldPanel.drawExpolde(tank.getX() + Constants.TANK_SIZE, tank.getY() + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2, Constants.SMALL_EXPLOSION_CODE,
+                                    Constants.EXPLOSION_SIZE);
+                    gameFieldPanel.repaint(tank.getX() + Constants.TANK_SIZE, tank.getY() + Constants.TANK_SIZE / 2
+                                    - Constants.EXPLOSION_SIZE / 2, Constants.EXPLOSION_SIZE, Constants.EXPLOSION_SIZE);
                     isCloseShot = true;
                     break;
                 } 
@@ -382,9 +382,9 @@ public class PlayerTankKeyListener implements KeyListener {
                 if (!tank.isPlayerControlled()) {
                     Rectangle shell1Bounds, shell2Bounds;                    
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize, tank.getY() 
-                                + Constants.tankSize / 2 - Constants.shellSize / 2, Constants.shellSize,
-                                        Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE, tank.getY()
+                                + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2, Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                         if (shell1Bounds.intersects(tank.getBounds())) {
                             gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
                             gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
@@ -392,10 +392,10 @@ public class PlayerTankKeyListener implements KeyListener {
                             isCloseShot = true;
                         }
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize, tank.getY() 
-                                + Constants.shellSize, Constants.shellSize, Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize, tank.getY() + Constants.tankSize
-                                        - Constants.shellSize * 2, Constants.shellSize, Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE, tank.getY()
+                                + Constants.SHELL_SIZE, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE, tank.getY() + Constants.TANK_SIZE
+                                        - Constants.SHELL_SIZE * 2, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
                         if (shell1Bounds.intersects(tank.getBounds())
                                         || shell2Bounds.intersects(tank.getBounds())) {
                             gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
@@ -420,60 +420,60 @@ public class PlayerTankKeyListener implements KeyListener {
                 closeShot = processCloseShotUp();
                 if (!closeShot) {
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2, 
-                                tank.getY() - Constants.shellSize, Constants.shellSize, Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2,
+                                tank.getY() - Constants.SHELL_SIZE, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2
-                                        - Constants.shellSize, tank.getY() - Constants.shellSize, Constants.shellSize,
-                                        Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 + Constants.shellSize / 2, 
-                                tank.getY() - Constants.shellSize, Constants.shellSize, Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2
+                                        - Constants.SHELL_SIZE, tank.getY() - Constants.SHELL_SIZE, Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 + Constants.SHELL_SIZE / 2,
+                                tank.getY() - Constants.SHELL_SIZE, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
                     }
                 }
             } else if (this.tank.getDirection() == Constants.DOWN) {
                 closeShot = processCloseShotDown();
                     if (!closeShot) {
                         if (!tank.isDoubleShot()) {
-                            shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 
-                                    - Constants.shellSize / 2, tank.getY() + Constants.tankSize, Constants.shellSize,
-                                            Constants.shellSize);
+                            shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2
+                                    - Constants.SHELL_SIZE / 2, tank.getY() + Constants.TANK_SIZE, Constants.SHELL_SIZE,
+                                            Constants.SHELL_SIZE);
                         } else {
-                            shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 - Constants.shellSize / 2
-                                            - Constants.shellSize, tank.getY() + Constants.tankSize, 
-                                            Constants.shellSize, Constants.shellSize);
-                            shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize / 2 
-                                    + Constants.shellSize / 2, tank.getY() + Constants.tankSize, Constants.shellSize,
-                                            Constants.shellSize);
+                            shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2
+                                            - Constants.SHELL_SIZE, tank.getY() + Constants.TANK_SIZE,
+                                            Constants.SHELL_SIZE, Constants.SHELL_SIZE);
+                            shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE / 2
+                                    + Constants.SHELL_SIZE / 2, tank.getY() + Constants.TANK_SIZE, Constants.SHELL_SIZE,
+                                            Constants.SHELL_SIZE);
                         }
                     }
             } else if (this.tank.getDirection() == Constants.LEFT) {
                 closeShot = processCloseShotLeft();
                 if (!closeShot) {
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() - Constants.shellSize, tank.getY() 
-                                + Constants.tankSize / 2 - Constants.shellSize / 2, Constants.shellSize, 
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE, tank.getY()
+                                + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2, Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() - Constants.shellSize, tank.getY() 
-                                + Constants.tankSize / 2 - Constants.shellSize / 2 - Constants.shellSize,
-                                        Constants.shellSize, Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() - Constants.shellSize, tank.getY() 
-                                + Constants.tankSize / 2 + Constants.shellSize / 2, Constants.shellSize,
-                                        Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE, tank.getY()
+                                + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2 - Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE, Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() - Constants.SHELL_SIZE, tank.getY()
+                                + Constants.TANK_SIZE / 2 + Constants.SHELL_SIZE / 2, Constants.SHELL_SIZE,
+                                        Constants.SHELL_SIZE);
                     }
                 }
             } else if (this.tank.getDirection() == Constants.RIGHT) {
                 closeShot = processCloseShotRight();
                 if (!closeShot) {
                     if (!tank.isDoubleShot()) {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize, tank.getY() 
-                                + Constants.tankSize / 2 - Constants.shellSize / 2, Constants.shellSize, 
-                                Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE, tank.getY()
+                                + Constants.TANK_SIZE / 2 - Constants.SHELL_SIZE / 2, Constants.SHELL_SIZE,
+                                Constants.SHELL_SIZE);
                     } else {
-                        shell1Bounds = new Rectangle(tank.getX() + Constants.tankSize, tank.getY() 
-                                + Constants.shellSize, Constants.shellSize, Constants.shellSize);
-                        shell2Bounds = new Rectangle(tank.getX() + Constants.tankSize, tank.getY() + Constants.tankSize
-                                        - Constants.shellSize * 2, Constants.shellSize, Constants.shellSize);
+                        shell1Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE, tank.getY()
+                                + Constants.SHELL_SIZE, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
+                        shell2Bounds = new Rectangle(tank.getX() + Constants.TANK_SIZE, tank.getY() + Constants.TANK_SIZE
+                                        - Constants.SHELL_SIZE * 2, Constants.SHELL_SIZE, Constants.SHELL_SIZE);
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package game.gui;
+package game.gui.editor;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;

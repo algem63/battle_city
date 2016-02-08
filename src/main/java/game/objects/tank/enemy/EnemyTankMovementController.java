@@ -5,8 +5,7 @@
  */
 package game.objects.tank.enemy;
 
-import game.objects.tank.player.PlayerTank;
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.objects.Bonus;
 import game.objects.HeadQuarter;
@@ -18,7 +17,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author Павел
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 public class EnemyTankMovementController implements ActionListener {
 
@@ -59,20 +58,20 @@ public class EnemyTankMovementController implements ActionListener {
         Rectangle tankRect = null;
         switch (tank.getDirection()) {
             case Constants.UP:                
-                tankRect = new Rectangle(tank.getX(), tank.getY() - Constants.stepValue,
-                        Constants.tankSize, Constants.tankSize);
+                tankRect = new Rectangle(tank.getX(), tank.getY() - Constants.STEP_VALUE,
+                        Constants.TANK_SIZE, Constants.TANK_SIZE);
                 break;
             case Constants.DOWN:                
-                tankRect = new Rectangle(tank.getX(), tank.getY() + Constants.stepValue,
-                        Constants.tankSize, Constants.tankSize);
+                tankRect = new Rectangle(tank.getX(), tank.getY() + Constants.STEP_VALUE,
+                        Constants.TANK_SIZE, Constants.TANK_SIZE);
                 break;
             case Constants.LEFT:                
-                tankRect = new Rectangle(tank.getX() - Constants.stepValue, tank.getY(),
-                        Constants.tankSize, Constants.tankSize);
+                tankRect = new Rectangle(tank.getX() - Constants.STEP_VALUE, tank.getY(),
+                        Constants.TANK_SIZE, Constants.TANK_SIZE);
                 break;
             case Constants.RIGHT:                
-                tankRect = new Rectangle(tank.getX() + Constants.stepValue, tank.getY(),
-                        Constants.tankSize, Constants.tankSize);
+                tankRect = new Rectangle(tank.getX() + Constants.STEP_VALUE, tank.getY(),
+                        Constants.TANK_SIZE, Constants.TANK_SIZE);
                 break;
         }
         return tankRect;
@@ -82,16 +81,16 @@ public class EnemyTankMovementController implements ActionListener {
         int temp = 0;
         switch (tank.getDirection()) {
             case Constants.UP:
-                temp = tank.getY() - Constants.stepValue;                
+                temp = tank.getY() - Constants.STEP_VALUE;
                 break;
             case Constants.DOWN:
-                temp = tank.getY() + Constants.stepValue + Constants.tankSize;
+                temp = tank.getY() + Constants.STEP_VALUE + Constants.TANK_SIZE;
                 break;
             case Constants.LEFT:
-                temp = tank.getX() - Constants.stepValue;                
+                temp = tank.getX() - Constants.STEP_VALUE;
                 break;
             case Constants.RIGHT:
-                temp = tank.getX() + Constants.stepValue + Constants.tankSize;                
+                temp = tank.getX() + Constants.STEP_VALUE + Constants.TANK_SIZE;
                 break;
         }
         return temp;
@@ -172,14 +171,14 @@ public class EnemyTankMovementController implements ActionListener {
                 tankMovementCondition = distance >= 0 && hit == false;
                 break;
             case Constants.DOWN:
-                tankMovementCondition = distance <= Constants.gameFieldHeight
+                tankMovementCondition = distance <= Constants.GAME_FIELD_HEIGHT
                         && hit == false;
                 break;
             case Constants.LEFT:
                 tankMovementCondition = distance >= 0 && hit == false;
                 break;
             case Constants.RIGHT:
-                tankMovementCondition = distance <= Constants.gameFieldWidth
+                tankMovementCondition = distance <= Constants.GAME_FIELD_WIDTH
                         && hit == false;
                 break;
         }

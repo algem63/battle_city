@@ -1,6 +1,6 @@
 package game.objects;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 
 /**
  * Created with IntelliJ IDEA.

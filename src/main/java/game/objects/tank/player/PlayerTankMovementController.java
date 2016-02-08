@@ -8,11 +8,10 @@ package game.objects.tank.player;
 
 /**
  *
- * @author Павел
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 
-import game.objects.tank.player.PlayerTank;
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.objects.Bonus;
 import game.objects.HeadQuarter;
@@ -71,28 +70,28 @@ public class PlayerTankMovementController implements ActionListener {
         Rectangle tankRect = null;
         int posX = tank.getX();
         int posY = tank.getY();
-        //todo заменить на distance
+        //todo пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ distance
         int temp = 0;
         switch (tank.getDirection()) {
             case Constants.UP:
-                temp = posY - Constants.stepValue;
-                tankRect = new Rectangle(posX, posY - Constants.stepValue,
-                                Constants.tankSize, Constants.tankSize);
+                temp = posY - Constants.STEP_VALUE;
+                tankRect = new Rectangle(posX, posY - Constants.STEP_VALUE,
+                                Constants.TANK_SIZE, Constants.TANK_SIZE);
                 break;
             case Constants.DOWN:
-                temp = posY + Constants.stepValue + Constants.tankSize;
-                tankRect = new Rectangle(posX, posY + Constants.stepValue,
-                                Constants.tankSize, Constants.tankSize);
+                temp = posY + Constants.STEP_VALUE + Constants.TANK_SIZE;
+                tankRect = new Rectangle(posX, posY + Constants.STEP_VALUE,
+                                Constants.TANK_SIZE, Constants.TANK_SIZE);
                 break;
             case Constants.LEFT:
-                temp = posX - Constants.stepValue;
-                tankRect = new Rectangle(posX - Constants.stepValue, posY,
-                                Constants.tankSize, Constants.tankSize);
+                temp = posX - Constants.STEP_VALUE;
+                tankRect = new Rectangle(posX - Constants.STEP_VALUE, posY,
+                                Constants.TANK_SIZE, Constants.TANK_SIZE);
                 break;
             case Constants.RIGHT:
-                temp = posX + Constants.stepValue + Constants.tankSize;
-                tankRect = new Rectangle(posX + Constants.stepValue, posY,
-                                Constants.tankSize, Constants.tankSize);
+                temp = posX + Constants.STEP_VALUE + Constants.TANK_SIZE;
+                tankRect = new Rectangle(posX + Constants.STEP_VALUE, posY,
+                                Constants.TANK_SIZE, Constants.TANK_SIZE);
                 break;
         }
         return tankRect;
@@ -203,13 +202,13 @@ public class PlayerTankMovementController implements ActionListener {
                 tankMovementCondition = borderDistance >= 0 && hit == false;
                 break;
             case Constants.DOWN:
-                tankMovementCondition = borderDistance <= Constants.gameFieldHeight && hit == false;
+                tankMovementCondition = borderDistance <= Constants.GAME_FIELD_HEIGHT && hit == false;
                 break;
             case Constants.LEFT:
                 tankMovementCondition = borderDistance >= 0 && hit == false;
                 break;
             case Constants.RIGHT:
-                tankMovementCondition = borderDistance <= Constants.gameFieldWidth && hit == false;
+                tankMovementCondition = borderDistance <= Constants.GAME_FIELD_WIDTH && hit == false;
                 break;
         }
         return tankMovementCondition;
@@ -219,16 +218,16 @@ public class PlayerTankMovementController implements ActionListener {
         int distance = 0;
         switch (tank.getDirection()) {
             case Constants.UP:
-                distance = tank.getY() - Constants.stepValue;                
+                distance = tank.getY() - Constants.STEP_VALUE;
                 break;
             case Constants.DOWN:
-                distance = tank.getY() + Constants.stepValue + Constants.tankSize;               
+                distance = tank.getY() + Constants.STEP_VALUE + Constants.TANK_SIZE;
                 break;
             case Constants.LEFT:
-                distance = tank.getX() - Constants.stepValue;               
+                distance = tank.getX() - Constants.STEP_VALUE;
                 break;
             case Constants.RIGHT:
-                distance = tank.getX() + Constants.stepValue + Constants.tankSize;              
+                distance = tank.getX() + Constants.STEP_VALUE + Constants.TANK_SIZE;
                 break;
         }
         return distance;

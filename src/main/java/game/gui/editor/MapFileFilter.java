@@ -1,4 +1,4 @@
-package game.logic;
+package game.gui.editor;
 
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
@@ -11,9 +11,7 @@ import java.io.FilenameFilter;
  * Time: 15:05
  * To change this template use File | Settings | File Templates.
  */
-public class MapFileFilter
-        extends FileFilter
-        implements FilenameFilter {
+public class MapFileFilter extends FileFilter implements FilenameFilter {
 
     String ext;
     String description;
@@ -53,10 +51,6 @@ public class MapFileFilter
     }
 
     public boolean accept(File dir, String name) {
-        if (name.endsWith(".map")) {
-            return true;
-        } else {
-            return false;
-        }
+        return name.endsWith(".map");
     }
 }

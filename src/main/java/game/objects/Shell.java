@@ -1,7 +1,7 @@
 package game.objects;
 
 import game.objects.tank.AbstractTank;
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.logic.GameConfig;
 import game.logic.ShellMovementHandler;
@@ -17,7 +17,7 @@ public class Shell extends JPanel {
 
     private int direction;
     private BufferedImage bulletPicture;
-    //TODO зачем нужно это поле?
+    //TODO пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ?
     private GameFieldPanel gameFieldPanel;
     public Timer timer;
     private AbstractTank tank;
@@ -66,13 +66,13 @@ public class Shell extends JPanel {
     private void setShellPicture(int direction) {
         try {
             if (direction == Constants.UP) {
-                bulletPicture = ImageIO.read(getClass().getResource(Constants.shellUp));
+                bulletPicture = ImageIO.read(getClass().getResource(Constants.SHELL_UP));
             } else if (direction == Constants.DOWN) {
-                bulletPicture = ImageIO.read(getClass().getResource(Constants.shellDown));
+                bulletPicture = ImageIO.read(getClass().getResource(Constants.SHELL_DOWN));
             } else if (direction == Constants.LEFT) {
-                bulletPicture = ImageIO.read(getClass().getResource(Constants.shellLeft));
+                bulletPicture = ImageIO.read(getClass().getResource(Constants.SHELL_LEFT));
             } else if (direction == Constants.RIGHT) {
-                bulletPicture = ImageIO.read(getClass().getResource(Constants.shellRight));
+                bulletPicture = ImageIO.read(getClass().getResource(Constants.SHELL_RIGHT));
             }
         } catch (IOException e) {
             GameConfig.getInstance().writeErrorMessageToLog(e);

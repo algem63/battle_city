@@ -1,4 +1,4 @@
-package game.gui;
+package game.gui.game;
 
 import game.logic.Constants;
 import game.logic.GameConfig;
@@ -28,13 +28,13 @@ public class GameMessage extends JPanel {
         ff7f7f7f вертикальные линии внутри букв
         */
         switch (pictureCode) {
-            case Constants.pauseMessageCode:
+            case Constants.PAUSE_MESSAGE_CODE:
                 messagePicture = GameConfig.getInstance().getPauseImage();
                 break;
-            case Constants.gameOverMessageCode:
+            case Constants.GAME_OVER_MESSAGE_CODE:
                 messagePicture = GameConfig.getInstance().getGameOverImage();
                 break;
-            case Constants.youWinMessageCode:
+            case Constants.YOU_WIN_MESSAGE_CODE:
                 messagePicture = GameConfig.getInstance().getYouWinImage();
                 break;
             default:

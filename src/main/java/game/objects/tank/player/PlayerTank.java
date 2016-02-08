@@ -6,7 +6,7 @@
 
 package game.objects.tank.player;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.objects.Shell;
 import game.objects.tank.AbstractTank;
@@ -15,7 +15,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author Павел
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 public class PlayerTank extends AbstractTank {
     

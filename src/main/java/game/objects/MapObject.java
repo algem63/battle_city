@@ -1,6 +1,6 @@
 package game.objects;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.logic.Constants;
 import game.logic.GameConfig;
 import java.awt.Component;
@@ -27,7 +27,7 @@ public class MapObject extends Component implements Serializable {
     protected ImageIcon explosionImage;
 
     protected GameFieldPanel panel;
-    //TODO выяснить, зачем нужны эти поля
+    //TODO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     private int xCoord;    
     private int yCoord;
     private int imageNum;
@@ -68,11 +68,11 @@ public class MapObject extends Component implements Serializable {
         if (imageNum == Constants.EXPLOSION_CODE || imageNum == Constants.TANK_CODE) {
             switch (imageNum) {
                 case Constants.EXPLOSION_CODE:
-                    dest = new BufferedImage(Constants.explosionSize, Constants.explosionSize, 
+                    dest = new BufferedImage(Constants.EXPLOSION_SIZE, Constants.EXPLOSION_SIZE,
                             BufferedImage.TYPE_INT_ARGB);                
                     break;
                 case Constants.TANK_CODE:
-                    dest = new BufferedImage(Constants.tankSize, Constants.tankSize, BufferedImage.TYPE_INT_ARGB);                
+                    dest = new BufferedImage(Constants.TANK_SIZE, Constants.TANK_SIZE, BufferedImage.TYPE_INT_ARGB);
                     break;            
             }
             if (dest != null) {
@@ -86,7 +86,7 @@ public class MapObject extends Component implements Serializable {
         }         
     }
 
-    //TODO этот метод повторяется в нескольких классах
+    //TODO пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     private void makeImageTransparent(BufferedImage dest) {
         for (int y = 0; y < dest.getHeight(); ++y) {
             for (int x = 0; x < dest.getWidth(); ++x) {

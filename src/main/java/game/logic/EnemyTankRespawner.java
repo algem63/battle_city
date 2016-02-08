@@ -1,6 +1,6 @@
 package game.logic;
 
-import game.gui.GameFieldPanel;
+import game.gui.game.GameFieldPanel;
 import game.objects.tank.AbstractTank;
 import game.objects.tank.enemy.EnemyTank;
 import java.awt.Component;
@@ -18,8 +18,21 @@ import java.util.Random;
  */
 public class EnemyTankRespawner implements ActionListener {
 
+    //TODO выпилить это отсюда
     private GameFieldPanel gameFieldPanel;
+
+    private final int LEFT_POS = 0;
+    private final int CENTER_POS = 1;
+    private final int RIGHT_POS = 2;
+
+    /**
+     * Выбирает случайным образом позицию для добавления танка противника: слева, справа или посередине
+     */
     private Random posCreator;
+
+    /**
+     * Количество танков противника на поле
+     */
     private int onField;
 
     public EnemyTankRespawner(GameFieldPanel gameFieldPanel) {
@@ -29,44 +42,48 @@ public class EnemyTankRespawner implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {        
-        if (gameFieldPanel.getEnemyTanksOnField() < onField
-                && gameFieldPanel.getMaxTanksCount() > 0) {
-            Rectangle position = new Rectangle();            
-            int pos = posCreator.nextInt(3); 
-//            int pos = 0;
-            switch (pos) {
-                case 0:
-                    position.setBounds(0,
-                                       0,
-                                       Constants.tankSize,
-                                       Constants.tankSize);
-                    break;
-                case 1:
-                    position.setBounds(Constants.gameFieldWidth/2 - Constants.tankSize/2,
-                                       0,
-                                       Constants.tankSize,
-                                       Constants.tankSize);
-                    break;
-                case 2:
-                    position.setBounds(Constants.gameFieldWidth - Constants.tankSize,
-                                       0,
-                                       Constants.tankSize,
-                                       Constants.tankSize);
-                    break;
-            }                                  
-            if (checkFreeSpace(position)) {
-//                Tank enemyTank = new Tank(gameFieldPanel, false, 1);
-                EnemyTank enemyTank = new EnemyTank(gameFieldPanel, false, 1);
-                enemyTank.setDirection(Constants.DOWN);
-                enemyTank.setTankPicture(AbstractTank.EN_TANK_DOWN);
-                enemyTank.setBounds(position);
-                gameFieldPanel.add(enemyTank, new Integer(0));
-                gameFieldPanel.increaseEnemyTanksOnField();              
-            }
+        if (gameFieldPanel.getEnemyTanksOnField() < onField && gameFieldPanel.getMaxTanksCount() > 0) {
+            addEnemyTank();
         }
     }
 
-    private boolean checkFreeSpace(Rectangle rectangle) {
+    /**
+     Добавляет на игровое поле танк противника
+     */
+    private void addEnemyTank() {
+        Rectangle position = new Rectangle();
+        final int positionCode = posCreator.nextInt(3);
+        final int xCoord;
+        switch (positionCode) {
+            case LEFT_POS:
+                position.setBounds(0, 0, Constants.TANK_SIZE, Constants.TANK_SIZE);
+                break;
+            case CENTER_POS:
+                xCoord = Constants.GAME_FIELD_WIDTH / 2 - Constants.TANK_SIZE / 2;
+                position.setBounds(xCoord, 0, Constants.TANK_SIZE, Constants.TANK_SIZE);
+                break;
+            case RIGHT_POS:
+                xCoord = Constants.GAME_FIELD_WIDTH - Constants.TANK_SIZE;
+                position.setBounds(xCoord, 0, Constants.TANK_SIZE, Constants.TANK_SIZE);
+                break;
+        }
+        if (checkFreeSpace(position)) {
+            EnemyTank enemyTank = new EnemyTank(gameFieldPanel, false, 1);
+            enemyTank.setDirection(Constants.DOWN);
+            enemyTank.setTankPicture(AbstractTank.EN_TANK_DOWN);
+            enemyTank.setBounds(position);
+            //TODO зачем тут ноль?
+            gameFieldPanel.add(enemyTank, new Integer(0));
+            gameFieldPanel.increaseEnemyTanksOnField();
+        }
+    }
+
+    /**
+     * Проверяет, не занята ли позиция для добавления танка посторонними объектами
+     * @param rectangle Позиция для добавления танка
+     * @return
+     */
+    private boolean checkFreeSpace(final Rectangle rectangle) {
         boolean free = true;
         Component[] components = gameFieldPanel.getComponents();
         for (Component component: components) {
