@@ -412,8 +412,8 @@ public class PlayerTankKeyListener implements KeyListener {
     
     private void fire() {
         if (tank.isFireKeyPressed() == false && tank.getCurrentBullets() < tank.getMaxBullets()) {					
-            gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
-            gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
+//            gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
+//            gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
             boolean closeShot = false;
             Rectangle shell1Bounds = null, shell2Bounds = null;            
             if (tank.getDirection() == Constants.UP) {						
@@ -522,8 +522,8 @@ public class PlayerTankKeyListener implements KeyListener {
                 currentBullets++;
                 tank.setCurrentBullets(currentBullets);
                 tank.setFireKeyPressed(true);   
-                gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
-                gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();                
+//                gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
+//                gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
                 gameFieldPanel.battleField.increaseShotsCountForPlayerOne();
                 gameFieldPanel.battleField.increaseTotalShotsCountForPlayerOne();
             } 

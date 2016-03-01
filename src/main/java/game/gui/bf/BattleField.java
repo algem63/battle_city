@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 public class BattleField extends BasicForm {
     private final int FORM_WIDTH = 1000;
     private final int FORM_HEIGHT = 629;
+    private final int FONT_SIZE = 10;
 
     private GameFieldPanel gameFieldPanel;
     //TODO блок со статистикой можно вынести в отдельный класс
@@ -56,12 +57,12 @@ public class BattleField extends BasicForm {
 
         levelNum = new JLabel("LEVEL ");
         levelNum.setBounds(820, 3, 80, 30);
-        levelNum.setFont(new Font("Times new roman", 1, 16));
+        levelNum.setFont(new Font("Times new roman", 1, FONT_SIZE));
         add(levelNum);
 
         levelValue = new JLabel();
         levelValue.setBounds(900, 3, 80, 30);
-        levelValue.setFont(new Font("Times new roman", 1, 16));
+        levelValue.setFont(new Font("Times new roman", 1, FONT_SIZE));
         levelValue.setHorizontalAlignment(SwingConstants.CENTER);
         levelValue.setText("1");
         add(levelValue);
@@ -71,18 +72,18 @@ public class BattleField extends BasicForm {
         add(line);
 
         player1 = new JLabel("Player 1");
-        player1.setFont(new Font("Times new roman", 1, 16));
+        player1.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player1.setBounds(810, 38, 85, 33);
         add(player1);
 
         player1LifeValue = new JLabel("1");
         player1LifeValue.setHorizontalAlignment(SwingConstants.CENTER);
-        player1LifeValue.setFont(new Font("Times new roman", 1, 16));
+        player1LifeValue.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player1LifeValue.setBounds(895, 38, 90, 33);
         add(player1LifeValue);
 
         player2 = new JLabel("Player 2");
-        player2.setFont(new Font("Times new roman", 1, 16));
+        player2.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player2.setBounds(810, 70, 85, 33);
         add(player2);
 
@@ -91,14 +92,14 @@ public class BattleField extends BasicForm {
         add(line2);
 
         tanksKilled = new JLabel("Tanks killed:");
-        tanksKilled.setFont(new Font("Times new roman", 1, 16));
+        tanksKilled.setFont(new Font("Times new roman", 1, FONT_SIZE));
         tanksKilled.setBounds(810, 105, 100, 40);
         add(tanksKilled);
 
 //        tanksKilledValue = new JLabel("0/" + gameFieldPanel.getMaxTanksCount());
         tanksKilledValue = new JLabel("0/" + GameConfig.getInstance().getProperty("tanksCount"));
 
-        tanksKilledValue.setFont(new Font("Times new roman", 1, 16));
+        tanksKilledValue.setFont(new Font("Times new roman", 1, FONT_SIZE));
         tanksKilledValue.setBounds(910, 105, 78, 40);
         tanksKilledValue.setHorizontalAlignment(SwingConstants.CENTER);
         add(tanksKilledValue);
@@ -108,7 +109,7 @@ public class BattleField extends BasicForm {
         add(line3);
 
         statictics = new JLabel("Statistics");
-        statictics.setFont(new Font("Times new roman", 1, 16));
+        statictics.setFont(new Font("Times new roman", 1, FONT_SIZE));
         statictics.setBounds(855, 145, 150, 40);
         add(statictics);
 
@@ -117,7 +118,7 @@ public class BattleField extends BasicForm {
         add(line4);
 
         name = new JLabel("Name");
-        name.setFont(new Font("Times new roman", 1, 16));
+        name.setFont(new Font("Times new roman", 1, FONT_SIZE));
         name.setBounds(810, 175, 40, 35);
         add(name);
 
@@ -126,7 +127,7 @@ public class BattleField extends BasicForm {
         add(line5);
 
         player11 = new JLabel("Player1");
-        player11.setFont(new Font("Times new roman", 1, 16));
+        player11.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player11.setBounds(860, 175, 60, 35);
         add(player11);
 
@@ -135,7 +136,7 @@ public class BattleField extends BasicForm {
         add(line6);
 
         player22 = new JLabel("Player2");
-        player22.setFont(new Font("Times new roman", 1, 16));
+        player22.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player22.setBounds(925, 175, 60, 35);
         add(player22);
 
@@ -144,17 +145,17 @@ public class BattleField extends BasicForm {
         add(line7);
 
         shots = new JLabel("Shots");
-        shots.setFont(new Font("Times new roman", 1, 16));
+        shots.setFont(new Font("Times new roman", 1, FONT_SIZE));
         shots.setBounds(810, 203, 40, 30);
         add(shots);
 
         killed = new JLabel("Killed");
-        killed.setFont(new Font("Times new roman", 1, 16));
+        killed.setFont(new Font("Times new roman", 1, FONT_SIZE));
         killed.setBounds(810, 227, 40, 30);
         add(killed);
 
         lost = new JLabel("Lost");
-        lost.setFont(new Font("Times new roman", 1, 16));
+        lost.setFont(new Font("Times new roman", 1, FONT_SIZE));
         lost.setBounds(810, 250, 40, 30);
         add(lost);
 
@@ -168,19 +169,19 @@ public class BattleField extends BasicForm {
 
         player1ShotsCount = new JLabel("0");
         player1ShotsCount.setHorizontalAlignment(SwingConstants.CENTER);
-        player1ShotsCount.setFont(new Font("Times new roman", 1, 16));
+        player1ShotsCount.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player1ShotsCount.setBounds(856, 204, 65, 30);
         add(player1ShotsCount);
 
         player1KilledCount = new JLabel("0");
         player1KilledCount.setHorizontalAlignment(SwingConstants.CENTER);
-        player1KilledCount.setFont(new Font("Times new roman", 1, 16));
+        player1KilledCount.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player1KilledCount.setBounds(856, 227, 65, 30);
         add(player1KilledCount);
 
         player1LostCount = new JLabel("0");
         player1LostCount.setHorizontalAlignment(SwingConstants.CENTER);
-        player1LostCount.setFont(new Font("Times new roman", 1, 16));
+        player1LostCount.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player1LostCount.setBounds(856, 250, 65, 30);
         add(player1LostCount);
 
@@ -190,25 +191,25 @@ public class BattleField extends BasicForm {
 
         player2ShotsCount = new JLabel("0");
         player2ShotsCount.setHorizontalAlignment(SwingConstants.CENTER);
-        player2ShotsCount.setFont(new Font("Times new roman", 1, 16));
+        player2ShotsCount.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player2ShotsCount.setBounds(921, 204, 65, 30);
         add(player2ShotsCount);
 
         player2KilledCount = new JLabel("0");
         player2KilledCount.setHorizontalAlignment(SwingConstants.CENTER);
-        player2KilledCount.setFont(new Font("Times new roman", 1, 16));
+        player2KilledCount.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player2KilledCount.setBounds(921, 227, 65, 30);
         add(player2KilledCount);
 
         player2LostCount = new JLabel("0");
         player2LostCount.setHorizontalAlignment(SwingConstants.CENTER);
-        player2LostCount.setFont(new Font("Times new roman", 1, 16));
+        player2LostCount.setFont(new Font("Times new roman", 1, FONT_SIZE));
         player2LostCount.setBounds(921, 250, 65, 30);
         add(player2LostCount);
 
         total = new JLabel("Total");
         total.setHorizontalAlignment(SwingConstants.CENTER);
-        total.setFont(new Font("Times new roman", 1, 16));
+        total.setFont(new Font("Times new roman", 1, FONT_SIZE));
         total.setBounds(856, 280, 65, 30);
         add(total);
 
@@ -217,17 +218,17 @@ public class BattleField extends BasicForm {
         add(line11);
 
         shots2 = new JLabel("Shots");
-        shots2.setFont(new Font("Times new roman", 1, 16));
+        shots2.setFont(new Font("Times new roman", 1, FONT_SIZE));
         shots2.setBounds(810, 305, 40, 30);
         add(shots2);
 
         killed2 = new JLabel("Killed");
-        killed2.setFont(new Font("Times new roman", 1, 16));
+        killed2.setFont(new Font("Times new roman", 1, FONT_SIZE));
         killed2.setBounds(810, 330, 40, 30);
         add(killed2);
 
         lost2 = new JLabel("Lost");
-        lost2.setFont(new Font("Times new roman", 1, 16));
+        lost2.setFont(new Font("Times new roman", 1, FONT_SIZE));
         lost2.setBounds(810, 354, 40, 30);
         add(lost2);
 
@@ -245,37 +246,37 @@ public class BattleField extends BasicForm {
 
         totalShotsCount1 = new JLabel("0");
         totalShotsCount1.setHorizontalAlignment(SwingConstants.CENTER);
-        totalShotsCount1.setFont(new Font("Times new roman", 1, 16));
+        totalShotsCount1.setFont(new Font("Times new roman", 1, FONT_SIZE));
         totalShotsCount1.setBounds(856, 310, 63, 22);
         add(totalShotsCount1);
 
         totalKilledCount1 = new JLabel("0");
         totalKilledCount1.setHorizontalAlignment(SwingConstants.CENTER);
-        totalKilledCount1.setFont(new Font("Times new roman", 1, 16));
+        totalKilledCount1.setFont(new Font("Times new roman", 1, FONT_SIZE));
         totalKilledCount1.setBounds(856, 329, 65, 30);
         add(totalKilledCount1);
 
         totalLostCount1 = new JLabel("0");
         totalLostCount1.setHorizontalAlignment(SwingConstants.CENTER);
-        totalLostCount1.setFont(new Font("Times new roman", 1, 16));
+        totalLostCount1.setFont(new Font("Times new roman", 1, FONT_SIZE));
         totalLostCount1.setBounds(856, 354, 65, 30);
         add(totalLostCount1);
 
         totalShotsCount2 = new JLabel("0");
         totalShotsCount2.setHorizontalAlignment(SwingConstants.CENTER);
-        totalShotsCount2.setFont(new Font("Times new roman", 1, 16));
+        totalShotsCount2.setFont(new Font("Times new roman", 1, FONT_SIZE));
         totalShotsCount2.setBounds(921, 305, 65, 30);
         add(totalShotsCount2);
 
         totalKilledCount2 = new JLabel("0");
         totalKilledCount2.setHorizontalAlignment(SwingConstants.CENTER);
-        totalKilledCount2.setFont(new Font("Times new roman", 1, 16));
+        totalKilledCount2.setFont(new Font("Times new roman", 1, FONT_SIZE));
         totalKilledCount2.setBounds(921, 329, 65, 30);
         add(totalKilledCount2);
 
         totalLostCount2 = new JLabel("0");
         totalLostCount2.setHorizontalAlignment(SwingConstants.CENTER);
-        totalLostCount2.setFont(new Font("Times new roman", 1, 16));
+        totalLostCount2.setFont(new Font("Times new roman", 1, FONT_SIZE));
         totalLostCount2.setBounds(921, 354, 65, 30);
         add(totalLostCount2);
 
